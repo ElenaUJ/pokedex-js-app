@@ -24,6 +24,11 @@ body {
     margin: 50px;
     text-align: center;
 }
+h1 {
+    font-family: 'Miltonian';
+    font-size: 35px;
+    font-weight: 400;
+}
 h2 {   
     font-family: 'Miltonian Tattoo';
     font-size: 20px;
