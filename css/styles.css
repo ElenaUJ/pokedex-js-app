@@ -1,0 +1,31 @@
+/* Settings (collection of variables that do not generate CSS, but are applied to classes)
+-----------------------------------------------------------*/
+:root {
+    /* colors */
+    --background-color: #FFFADE;
+    --primary-color: #3B4CCA;
+}
+
+/* Generic
+-----------------------------------------------------------*/
+* {
+    /* border and padding are included in width of element */
+    box-sizing: border-box;
+}
+
+/* Element style
+-----------------------------------------------------------*/
+body {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    font-family: 'Albert Sans';
+    font-size: 16px;
+    font-weight: 200;
+    text-align: center;
+}
+h2 {   
+    font-family: 'Miltonian Tattoo';
+    font-size: 20px;
+    font-weight: 400;
+    padding-top: 30px;
+}
