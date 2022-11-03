@@ -20,6 +20,11 @@ let pokemonList = [
         type: ['fairy', 'normal']
     },
     {
+        name: 'Charizard', 
+        height: 1.7, 
+        type: ['fire', 'flying']
+    },
+    {
         name: 'Eevee', 
         height: 0.3, 
         type: ['normal']
@@ -28,11 +33,6 @@ let pokemonList = [
         name: 'Cinderace', 
         height: 1.4, 
         type: ['fire']
-    },
-    {
-        name: 'Charizard', 
-        height: 1.7, 
-        type: ['fire', 'flying']
     }
 ]
 
