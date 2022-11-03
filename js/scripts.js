@@ -2,37 +2,37 @@ let pokemonList = [
     {
         name: 'Pikachu', 
         height: 0.4, 
-        types: ['electric']
+        type: ['electric']
     },
     {
         name: 'Mew', 
         height: 0.4, 
-        types: ['psychic']
+        type: ['psychic']
     },
     {
         name: 'Psyduck', 
         height: 0.8, 
-        types: ['water']
+        type: ['water']
     },
     {
         name: 'Jigglypuff', 
         height: 0.5, 
-        types: ['fairy', 'normal']
+        type: ['fairy', 'normal']
     },
     {
         name: 'Eevee', 
         height: 0.3, 
-        types: ['normal']
+        type: ['normal']
     },
     {
         name: 'Cinderace', 
         height: 1.4, 
-        types: ['fire']
+        type: ['fire']
     },
     {
         name: 'Charizard', 
         height: 1.7, 
-        types: ['fire', 'flying']
+        type: ['fire', 'flying']
     }
 ]
 
