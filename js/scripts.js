@@ -41,8 +41,8 @@ Loop: let i = 0 initialized loop at first arrax index; i < pokemonList.length ma
 Condition: If Pokemon height equals or is larger than 1.5, it will be pointed out using modified string; \is used to hide single quote in "that's"  */
 for (let i = 0; i < pokemonList.length; i++) {
     if (pokemonList[i].height >= 1.5) {
-        document.write('<h2>' + pokemonList[i].name + '</h2><p> (height: ' + pokemonList[i].height + ' m) - Wow, that\'s big!</p>');
+        document.write('<h2>' + pokemonList[i].name + '</h2><p> height: ' + pokemonList[i].height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
     } else {
-        document.write('<h2>' + pokemonList[i].name + '</h2><p> (height: ' + pokemonList[i].height + ' m)</p>');
+        document.write('<h2>' + pokemonList[i].name + '</h2><p> height: ' + pokemonList[i].height + ' m</p>');
     }
 }
