@@ -68,6 +68,22 @@ function printList(pokemon) {
     } else {
         document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
     }
+}*/
+
+/*pokemonList.forEach(function(pokemon) {
+    if (pokemon.height >= 1.5) {
+        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
+    } else {
+        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
+    }
+});*/
+
+function printRepo(pokemon) {
+    if (pokemon.height >= 1.5) {
+        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
+    } else {
+        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
+    }
 }
 //  Calling the forEach method to run printList for every array item of the pokemonList array. (Has to be accessed by calling the getAll() function.) ForEach method takes functions as arguments.
 pokemonRepository.getAll().forEach(printList);
