@@ -40,23 +40,28 @@ let pokemonRepository = (function() {
         }
     ];
     
-    // .push method adds elements to the end of the array
+    // Sahil: Is it ok that the parameter is called pokemon, even though in the forEach loop the parameter is called the same? Or shall I use another name for the parameter here
     function add(pokemon) { 
-        // Sahil: Is it ok that the parameter is called pokemon, even though in the forEach loop the parameter is called the same? Or shall I use another name for the parameter here
+        // Validation of input type: Has to be an object which contains the keys name, height and type
+        if (typeof pokemon === 'object'
+        && Object.keys(pokemon).includes('name' && 'height' && 'type')) {
+        // .push method adds elements to the end of the array
         pokemonList.push(pokemon);
+        // No else statement necessary for now?
+        }
     }
 
     function getAll() {
         return pokemonList;
     }
 
-    // Return a new object with two keys that penetrate the IIFE, add and getAll. Since add and getAll have the same names for key and value, I could also just write add, getAll
+    // Return a new object with two keys that penetrate the IIFE: add and getAll. Since add and getAll have the same names for key and value, I could also just write add, getAll
     return {
         add: add,
         getAll: getAll
     };
 
-// The IIFE function is self-executing, hence why it ends with the parentheses
+// The IIFE function is self-executing, hence why it ends with parentheses
 })();
 
 // Definition of printList function that should be looped over each array item (printing Pokemon details, adding 'Wow, that's big' to any Pokemon which is equal or higher than 1.5 m)
