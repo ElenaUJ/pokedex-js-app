@@ -69,5 +69,5 @@ function printList(pokemon) {
         document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
     }
 }
-//calling the forEach method to run printList for every array item of the pokemonList array. ForEach method takes functions as arguments.
-pokemonList.forEach(printList);
+//  Calling the forEach method to run printList for every array item of the pokemonList array. (Has to be accessed by calling the getAll() function.) ForEach method takes functions as arguments.
+pokemonRepository.getAll().forEach(printList);
