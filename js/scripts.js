@@ -36,13 +36,15 @@ let pokemonList = [
     }
 ]
 
-/* To display list of Pokemon with their respective heights in the HTML file. 
-Loop: let i = 0 initialized loop at first arrax index; i < pokemonList.length makes sure loops stops at last array-index; pokemonList[i].name refers to the respective pokemon's (object's) name (key-value)
-Condition: If Pokemon height equals or is larger than 1.5, it will be pointed out using modified string; \is used to hide single quote in "that's" (escape character) */
-for (let i = 0; i < pokemonList.length; i++) {
-    if (pokemonList[i].height >= 1.5) {
-        document.write('<h2>' + pokemonList[i].name + '</h2><p> height: ' + pokemonList[i].height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
+// Print list of Pokemon with their respective heights in the HTML file. 
+
+// Definition of printList function that should be looped over each array item (printing Pokemon details, adding 'Wow, that's big' to any Pokemon which is equal or higher than 1.5 m)
+function printList(pokemon) {
+    if (pokemon.height >= 1.5) {
+        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
     } else {
-        document.write('<h2>' + pokemonList[i].name + '</h2><p> height: ' + pokemonList[i].height + ' m</p>');
+        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
     }
 }
+//calling the forEach method to run printList for every array item of the pokemonList array. ForEach method takes functions as arguments.
+pokemonList.forEach(printList);
