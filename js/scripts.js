@@ -59,26 +59,8 @@ let pokemonRepository = (function() {
 // The IIFE function is self-executing, hence why it ends with the parentheses
 })();
 
-// Print list of Pokemon with their respective heights in the HTML file. 
-
 // Definition of printList function that should be looped over each array item (printing Pokemon details, adding 'Wow, that's big' to any Pokemon which is equal or higher than 1.5 m)
 function printList(pokemon) {
-    if (pokemon.height >= 1.5) {
-        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
-    } else {
-        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
-    }
-}*/
-
-/*pokemonList.forEach(function(pokemon) {
-    if (pokemon.height >= 1.5) {
-        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
-    } else {
-        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
-    }
-});*/
-
-function printRepo(pokemon) {
     if (pokemon.height >= 1.5) {
         document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
     } else {
