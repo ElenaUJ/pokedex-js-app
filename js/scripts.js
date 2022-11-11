@@ -40,7 +40,7 @@ let pokemonRepository = (function() {
         }
     ];
     
-    // Sahil: Is it ok that the parameter is called pokemon, even though in the forEach loop the parameter is called the same? Or shall I use another name for the parameter here
+    // Is it ok that the parameter is called pokemon here and in the filter function, even though in the forEach loop the parameter is called the same? Or shall I use another name for the parameter here
     function add(pokemon) { 
         // Validation of input type: Has to be an object which contains the keys name, height and type
         if (typeof pokemon === 'object'
@@ -51,13 +51,27 @@ let pokemonRepository = (function() {
         }
     }
 
+    // Function to filter Pokemon names by starting letters, using the filter() method. It creates a copy af the targeted array including only those objects for which the filter() function returns a truthy value.
+    // Parameter query represents the search input. 
+    function filterPokemons(query) {
+        return pokemonList.filter(
+            // Why does it not work to use pokemon.name here? Are object keys not valid parameters?
+            function (pokemon) {
+                // toLowerCase() method was used so the input is not case-sensitive
+                // Why are there no more parentheses needed here? The many dots are confusing...
+                return pokemon.name.toLowerCase().startsWith(query.toLowerCase());
+            }
+        );
+    }
+    
     function getAll() {
         return pokemonList;
     }
 
-    // Return a new object with two keys that penetrate the IIFE: add and getAll. Since add and getAll have the same names for key and value, I could also just write add, getAll
+    // Return a new object with three keys that penetrate the IIFE ("public functions"): add, filterPokemons, and getAll. Since they all have the same names for key and value, I could also just write add, filterPokemons, getAll
     return {
         add: add,
+        filterPokemons: filterPokemons,
         getAll: getAll
     };
 
@@ -72,5 +86,5 @@ function printList(pokemon) {
         document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
     }
 }
-//  Calling the forEach method to run printList for every array item of the pokemonList array. (Has to be accessed by calling the getAll() function.) ForEach method takes functions as arguments.
+// Calling the forEach method to run printList for every array item of the pokemonList array. (Has to be accessed by calling the getAll() function.) ForEach method takes functions as arguments.
 pokemonRepository.getAll().forEach(printList);
