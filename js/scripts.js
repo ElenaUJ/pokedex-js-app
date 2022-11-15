@@ -98,16 +98,9 @@ let pokemonRepository = (function() {
 // The IIFE function is self-executing, hence why it ends with parentheses
 })();
 
-// Definition of printList function that should be looped over each array item (printing Pokemon details, adding 'Wow, that's big' to any Pokemon which is equal or higher than 1.5 m)
 // Declaration of the function that should be looped over each array item. addListPokemon() function is called within the function declaration (correct?). Parameter of the printList() function has to be the same as the addListPokemon()'s arguments.
 function printList(pokemon) {
-    if (pokemon.height >= 1.5) {
-        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
-    } else {
-        document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
-    }
     pokemonRepository.addListPokemon(pokemon);
 }
-// Calling the forEach method to run printList for every array item of the pokemonList array. (Has to be accessed by calling the getAll() function.) ForEach method takes functions as arguments.
 // Calling the forEach method to run the addListPokemon function for every array item of the pokemonList array. (Has to be accessed by calling the getAll() function.) ForEach method takes functions as arguments.
 pokemonRepository.getAll().forEach(printList);
