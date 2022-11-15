@@ -68,23 +68,46 @@ let pokemonRepository = (function() {
         return pokemonList;
     }
 
+    function addListPokemon(pokemon) {
+
+        let pokemonList = document.querySelector('.pokemon-list');
+
+        // Creating list item elements.
+        let listPokemon = document.createElement('li');
+    
+        let button = document.createElement('button');
+        // Function takes pokemon as parameter, so it has to be used as a selector for the button text.
+        button.innerText = pokemon.name;
+        // Adding classs="button" to listItem. Specific CSS style for this class defined in CSS stylesheet.
+        button.classList.add('button');
+        // Appending button to listItem as its child.
+        listPokemon.appendChild(button);
+    
+        // Appending listItem to pokemonList as its child.
+        pokemonList.appendChild(listPokemon);
+    }
+
     // Return a new object with three keys that penetrate the IIFE ("public functions"): add, filterPokemons, and getAll. Since they all have the same names for key and value, I could also just write add, filterPokemons, getAll
     return {
         add: add,
         filterPokemons: filterPokemons,
-        getAll: getAll
+        getAll: getAll,
+        addListPokemon: addListPokemon
     };
 
 // The IIFE function is self-executing, hence why it ends with parentheses
 })();
 
 // Definition of printList function that should be looped over each array item (printing Pokemon details, adding 'Wow, that's big' to any Pokemon which is equal or higher than 1.5 m)
+// Declaration of the function that should be looped over each array item. addListPokemon() function is called within the function declaration (correct?). Parameter of the printList() function has to be the same as the addListPokemon()'s arguments.
 function printList(pokemon) {
     if (pokemon.height >= 1.5) {
         document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p><p style="color: #CC0000">Wow, that\'s big!</p>');
     } else {
         document.write('<h2>' + pokemon.name + '</h2><p> height: ' + pokemon.height + ' m</p>');
     }
+    pokemonRepository.addListPokemon(pokemon);
 }
 // Calling the forEach method to run printList for every array item of the pokemonList array. (Has to be accessed by calling the getAll() function.) ForEach method takes functions as arguments.
+// Calling the forEach method to run the addListPokemon function for every array item of the pokemonList array. (Has to be accessed by calling the getAll() function.) ForEach method takes functions as arguments.
 pokemonRepository.getAll().forEach(printList);
