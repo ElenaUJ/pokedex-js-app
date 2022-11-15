@@ -4,6 +4,8 @@
     /* colors */
     --background-color: #FFFADE;
     --primary-color: #3c5aa6;
+    --button-background: #ffcb05;
+    --button-hover: #e0b409;
 }
 
 /* Generic
@@ -35,4 +37,36 @@ h2 {
     font-size: 20px;
     font-weight: 400;
     padding-top: 30px;
+}
+ul {
+    /* Takes away default bullets and indentation */
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Component style
+-----------------------------------------------------------*/
+.button {
+    background-color: var(--button-background);
+    border: 2px solid;
+    border-color: var(--primary-color);
+    border-radius: 3px;
+    color: var(--primary-color);
+    /* display: inline-block allows to set a width and height on the element. Also, the top and bottom margins/paddings are respected, */
+    display: inline-block;
+    font-family: 'Miltonian Tattoo';
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    margin: 8px auto;
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: 0.2s transform ease-in-out, 
+    0.2s background-color ease-in-out;
+    width: 200px;
+}.button:hover,
+.button:focus {
+    background-color: var(--button-hover);
+    cursor: pointer;
+    transform: scale(1.075);
 }
