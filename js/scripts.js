@@ -40,7 +40,9 @@ let pokemonRepository = (function() {
         }
     ];
     
+    // Function declarations are not ended with a semicolon, because they are not executable statements.
     // Is it ok that the parameter is called pokemon here and in the filter function, even though in the forEach loop the parameter is called the same? Or shall I use another name for the parameter here
+    // When and how will this actually be used?
     function add(pokemon) { 
         // Validation of input type: Has to be an object which contains the keys name, height and type
         if (typeof pokemon === 'object'
