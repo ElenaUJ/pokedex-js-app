@@ -70,6 +70,11 @@ let pokemonRepository = (function() {
         return pokemonList;
     }
 
+    // Creating function to be called upon clicking Pokemon buttons.
+    function showDetails(pokemon) {
+        console.log('Name: ' + pokemon.name + ', height: ' + pokemon.height + ' m, type(s): ' + pokemon.type);
+    }
+
     function addListPokemon(pokemon) {
 
         let pokemonList = document.querySelector('.pokemon-list');
@@ -87,6 +92,11 @@ let pokemonRepository = (function() {
     
         // Appending listItem to pokemonList as its child.
         pokemonList.appendChild(listPokemon);
+
+        // Event Listener records any clicking on Pokemon buttons, which triggers the showDetails function declared above (Event Handler), using the clicked-on Pokemon as parameter.
+        button.addEventListener('click', function() {
+            showDetails(pokemon);
+        })
     }
 
     // Return a new object with three keys that penetrate the IIFE ("public functions"): add, filterPokemons, and getAll. Since they all have the same names for key and value, I could also just write add, filterPokemons, getAll
