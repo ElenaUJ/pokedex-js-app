@@ -60,8 +60,11 @@ let pokemonRepository = (function() {
             // Why does it not work to use pokemon.name here? Are object keys not valid parameters?
             function (pokemon) {
                 // toLowerCase() method was used so the input is not case-sensitive
-                // Why are there no more parentheses needed here? The many dots are confusing...
-                return pokemon.name.toLowerCase().startsWith(query.toLowerCase());
+                // Concise form: return pokemon.name.toLowerCase().startsWith(query.toLowerCase());
+                // Verbose form:
+                let pokemonLowerCase = pokemon.name.toLowerCase();
+                let queryLowerCase = query.toLowerCase();
+                return pokemonLowerCase.startsWith(queryLowerCase);
             }
         );
     }
