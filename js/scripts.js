@@ -49,7 +49,8 @@ let pokemonRepository = (function() {
         && Object.keys(pokemon).includes('name' && 'height' && 'type')) {
         // .push method adds elements to the end of the array
         pokemonList.push(pokemon);
-        // No else statement necessary for now?
+        } else {
+            console.error('Pokémon has to be added using this format: {name:, height:, type: []}')
         }
     }
 
