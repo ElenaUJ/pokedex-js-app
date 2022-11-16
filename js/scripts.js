@@ -41,14 +41,13 @@ let pokemonRepository = (function() {
     ];
     
     // Function declarations are not ended with a semicolon, because they are not executable statements.
-    // Is it ok that the parameter is called pokemon here and in the filter function, even though in the forEach loop the parameter is called the same? Or shall I use another name for the parameter here
-    // When and how will this actually be used?
+    // This function will be used when Pokemons can be added without hardcoding the values.
     function add(pokemon) { 
         // Validation of input type: Has to be an object which contains the keys name, height and type
-        if (typeof pokemon === 'object'
+        if (typeof pokemon === 'object' 
         && Object.keys(pokemon).includes('name' && 'height' && 'type')) {
-        // .push method adds elements to the end of the array
-        pokemonList.push(pokemon);
+            // .push method adds elements to the end of the array
+            pokemonList.push(pokemon);
         } else {
             console.error('Pokémon has to be added using this format: {name:, height:, type: []}')
         }
@@ -58,7 +57,7 @@ let pokemonRepository = (function() {
     // Parameter query represents the search input. 
     function filterPokemons(query) {
         return pokemonList.filter(
-            // Why does it not work to use pokemon.name here? Are object keys not valid parameters?
+            // Pokemon.name can not be used because pokemon has not been defined in this function yet.
             function (pokemon) {
                 // toLowerCase() method was used so the input is not case-sensitive
                 // Concise form: return pokemon.name.toLowerCase().startsWith(query.toLowerCase());
@@ -89,12 +88,11 @@ let pokemonRepository = (function() {
         let button = document.createElement('button');
         // Function takes pokemon as parameter, so it has to be used as a selector for the button text.
         button.innerText = pokemon.name;
-        // Adding classs="button" to listItem. Specific CSS style for this class defined in CSS stylesheet.
+        // Adding class="button" to listItem. Specific CSS style for this class defined in CSS stylesheet.
         button.classList.add('button');
-        // Appending button to listItem as its child.
+        // Appending button to listPokemon as its child.
         listPokemon.appendChild(button);
-    
-        // Appending listItem to pokemonList as its child.
+        // Appending listPokemon to pokemonList as its child.
         pokemonList.appendChild(listPokemon);
 
         // Event Listener records any clicking on Pokemon buttons, which triggers the showDetails function declared above (Event Handler), using the clicked-on Pokemon as parameter.
@@ -114,7 +112,7 @@ let pokemonRepository = (function() {
 // The IIFE function is self-executing, hence why it ends with parentheses
 })();
 
-// Declaration of the function that should be looped over each array item. addListPokemon() function is called within the function declaration (correct?). Parameter of the printList() function has to be the same as the addListPokemon()'s arguments.
+// Declaration of the function that should be looped over each array item. addListPokemon() function is called within the function declaration. Parameter of the printList() function has to be the same as the addListPokemon()'s arguments.
 function printList(pokemon) {
     pokemonRepository.addListPokemon(pokemon);
 }
