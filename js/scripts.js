@@ -68,11 +68,32 @@ let pokemonRepository = (function() {
     }
 
     // Return a new object with three keys that penetrate the IIFE ("public functions"): add, filterPokemons, and getAll. Since they all have the same names for key and value, I could also just write add, filterPokemons, getAll
+    // Promise-fetch-function: API URL will be fetched. Result of the promise is the response which will be converted to a JSON in another promise function. When that is successful, a forEach loop will be run on each Pokemon item in the json.results array, creating a pokemon variable object containing two keys, name and detailsUrl. After, run add() function (declared above) to add all those pokeons to the pokemonList array.
+    function loadList () {
+        return fetch(apiUrl).then(function (response) {
+            return response.json();
+        // json represesents the API object in JSON format - .result is an object key of the external API including an array of Pokemon objects.
+        }).then(function (json) {
+            json.results.forEach(function (item) {
+                let pokemon = {
+                    name: item.name,
+                    detailsUrl: item.url
+                };
+                add(pokemon);
+                // Prints all Pokemon in the console
+                console.log(pokemon);
+            }); 
+        }).catch(function (e) {
+            console.error(e);
+        })
+    }
+
     return {
         add: add,
         filterPokemons: filterPokemons,
         getAll: getAll,
-        addListPokemon: addListPokemon
+        addListPokemon: addListPokemon,
+        loadList: loadList,
     };
 
 // The IIFE function is self-executing, hence why it ends with parentheses
