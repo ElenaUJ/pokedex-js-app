@@ -39,6 +39,7 @@ let pokemonRepository = (function() {
         return pokemonList;
     }
 
+    // DOM manipulation
     function addListPokemon(pokemon) {
 
         let pokemonList = document.querySelector('.pokemon-list');
@@ -62,7 +63,6 @@ let pokemonRepository = (function() {
         })
     }
 
-    // Return a new object with three keys that penetrate the IIFE ("public functions"): add, filterPokemons, and getAll. Since they all have the same names for key and value, I could also just write add, filterPokemons, getAll
     // Promise-fetch-function: API URL will be fetched. Result of the promise is the response which will be converted to a JSON in another promise function. When that is successful, a forEach loop will be run on each Pokemon item in the json.results array, creating a pokemon variable object containing two keys, name and detailsUrl. After, run add() function (declared above) to add all those pokeons to the pokemonList array.
     function loadList () {
         return fetch(apiUrl).then(function (response) {
@@ -108,6 +108,8 @@ let pokemonRepository = (function() {
         });
     }
 
+    // Return a new object with keys that penetrate the IIFE ("public functions"). Since they all have the same names for key and value, I could also just write add, filterPokemons, getAll, etc.
+    // Does filterPokemons belong here?
     return {
         add: add,
         filterPokemons: filterPokemons,
