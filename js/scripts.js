@@ -1,44 +1,9 @@
 // The array pokemonList is wrapped in an IIFE function to make its elements inaccessible from the outside. Exception: the two well-defined keys that are returned by the IIFE function.
 let pokemonRepository = (function() {
 
-    // Array definition
-    let pokemonList = [
-        {
-            name: 'Pikachu', 
-            height: 0.4, 
-            type: ['electric']
-        },
-        {
-            name: 'Mew', 
-            height: 0.4, 
-            type: ['psychic']
-        },
-        {
-            name: 'Psyduck', 
-            height: 0.8, 
-            type: ['water']
-        },
-        {
-            name: 'Jigglypuff', 
-            height: 0.5, 
-            type: ['fairy', 'normal']
-        },
-        {
-            name: 'Charizard', 
-            height: 1.7, 
-            type: ['fire', 'flying']
-        },
-        {
-            name: 'Eevee', 
-            height: 0.3, 
-            type: ['normal']
-        },
-        {
-            name: 'Cinderace', 
-            height: 1.4, 
-            type: ['fire']
-        }
-    ];
+    // Array definition (empty), becaue Pokemons will be pushed from API
+    let pokemonList = [];
+
     
     // Function declarations are not ended with a semicolon, because they are not executable statements.
     // This function will be used when Pokemons can be added without hardcoding the values.
