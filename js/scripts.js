@@ -39,11 +39,6 @@ let pokemonRepository = (function() {
         return pokemonList;
     }
 
-    // Creating function to be called upon clicking Pokemon buttons.
-    function showDetails(pokemon) {
-        console.log('Name: ' + pokemon.name + ', height: ' + pokemon.height + ' m, type(s): ' + pokemon.type);
-    }
-
     function addListPokemon(pokemon) {
 
         let pokemonList = document.querySelector('.pokemon-list');
@@ -106,6 +101,13 @@ let pokemonRepository = (function() {
         });
     }
 
+    // Creating function to be called upon clicking Pokemon buttons: 1. Fetch pokemon details (only done when clicked on button) and then 2. print them into the console. The pokemon object is to be passed as a parameter.
+    function showDetails(pokemon) {
+        loadDetails(pokemon).then(function () {
+            console.log (pokemon);
+        });
+    }
+
     return {
         add: add,
         filterPokemons: filterPokemons,
@@ -113,6 +115,7 @@ let pokemonRepository = (function() {
         addListPokemon: addListPokemon,
         loadList: loadList,
         loadDetails: loadDetails,
+        showDetails: showDetails
     };
 
 // The IIFE function is self-executing, hence why it ends with parentheses
