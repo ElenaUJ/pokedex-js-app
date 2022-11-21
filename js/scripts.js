@@ -9,13 +9,13 @@ let pokemonRepository = (function() {
     // Function declarations are not ended with a semicolon, because they are not executable statements.
     // This function will be used when Pokemons can be added without hardcoding the values.
     function add(pokemon) { 
-        // Validation of input type: Has to be an object which contains the keys name, height and type
+        // Validation of input type: Has to be an object which contains the keys name and detailsUrl
         if (typeof pokemon === 'object' 
-        && Object.keys(pokemon).includes('name' && 'height' && 'type')) {
+        && Object.keys(pokemon).includes('name' && 'detailsUrl')) {
             // .push method adds elements to the end of the array
             pokemonList.push(pokemon);
         } else {
-            console.error('Pokémon has to be added using this format: {name:, height:, type: []}')
+            console.error('Pokémon has to be added using this format: {name:, detailsUrl:}')
         }
     }
 
