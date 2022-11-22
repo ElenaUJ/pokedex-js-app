@@ -105,8 +105,12 @@ let pokemonRepository = (function() {
             // .sprites/front_default etc. keys originate in the API. Sprites are collections of images put into a single image.
             item.imageUrl = details.sprites.front_default;
             item.height = details.height;
-            // Something to think about from the video, how to extract an array of types from the API type information. Create a forLoop tha iterate throught the API types object to push just the types into an empty array of types and then display to the user.
-            item.types = details.types;
+            // Extracting an array of types from the API type information. Their suggestion is to create a forLoop to iterate throught the API types object and pushing just the types into an empty array of types- and then display that to the user. Like so:
+            let arrayOfTypes = [];
+            details.types.forEach(function (item) {
+                arrayOfTypes.push(item.type.name);
+            });
+            item.types = arrayOfTypes;
         }).catch (function (e) {
             console.error(e);
         });
