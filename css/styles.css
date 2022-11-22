@@ -14,6 +14,9 @@
     /* border and padding are included in width of element */
     box-sizing: border-box;
 }
+.hidden {
+    display: none;
+}
 
 /* Element style
 -----------------------------------------------------------*/
@@ -69,4 +72,35 @@ ul {
     background-color: var(--button-hover);
     cursor: pointer;
     transform: scale(1.075);
+}
+.loading-message {
+    padding-top: 50px;
+}
+
+/* Animations
+-----------------------------------------------------------*/
+@keyframes jump {
+    0% {
+        bottom: 0px;
+    }
+    20% {
+        bottom: 5px;
+    }
+    40% {
+        bottom: 0px;
+    }
+}
+.jumping-dots {
+    animation: jump 2s infinite;
+    bottom: 0px;
+    position: relative;
+}
+.dot-1{
+    animation-delay: 200ms;
+}
+.dot-2{
+    animation-delay: 400ms;
+}
+.dot-3{
+    animation-delay: 600ms;
 }

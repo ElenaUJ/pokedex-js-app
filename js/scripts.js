@@ -65,10 +65,20 @@ let pokemonRepository = (function() {
 
     // Promise-fetch-function: API URL will be fetched. Result of the promise is the response which will be converted to a JSON in another promise function. When that is successful, a forEach loop will be run on each Pokemon item in the json.results array, creating a pokemon variable object containing two keys, name and detailsUrl. After, run add() function (declared above) to add all those pokeons to the pokemonList array.
     function loadList () {
+        // Show and hide loading message definitions. Alternatively, instead of modifyig my HTML file, I could create a paragraph element in the DOM, define its inner text and append it to the <main> parent. For hideLoadingMessage I could remove it again. Is that a better way of doing it? I would have to add html though, which as per course is not recommended because it is more error-prone. Another option: To create a parargraph in the HTML file, while loading setting its inner text to please wait. To hide the message when it's done loading, set the inner text to an empty string.
+        let loadingMessage = document.querySelector('.loading-message');
+        function showLoadingMessage () {
+            loadingMessage.classList.remove('hidden');
+        }
+        function hideLoadingMessage () {
+            loadingMessage.classList.add('hidden');
+        }
+        showLoadingMessage();
         return fetch(apiUrl).then(function (response) {
             return response.json();
         // json represesents the API object in JSON format - .result is an object key of the external API including an array of Pokemon objects.
         }).then(function (json) {
+            hideLoadingMessage();
             json.results.forEach(function (item) {
                 let pokemon = {
                     name: item.name,
@@ -79,6 +89,7 @@ let pokemonRepository = (function() {
                 console.log(pokemon);
             }); 
         }).catch(function (e) {
+            hideLoadingMessage();
             console.error(e);
         })
     }
