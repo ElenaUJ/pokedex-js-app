@@ -39,7 +39,8 @@ h2 {
     font-family: 'Miltonian Tattoo';
     font-size: 20px;
     font-weight: 400;
-    padding-top: 30px;
+    margin: 0;
+    padding-top: 15px;
 }
 ul {
     /* Takes away default bullets and indentation */
@@ -75,6 +76,47 @@ ul {
 }
 .loading-message {
     padding-top: 50px;
+}
+/* Modal container default-state: hidden */
+#modal-container {
+    display: none;
+}
+#modal-container.is-visible {
+    /* Positioning */
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    z-index: 999; /* The high z-index makes sure it is always positioned on top of everything else */
+    /* Position of the modal within the container */
+    display: grid;
+    text-align: center;
+    /* Further styling*/
+    background: rgba(0, 0, 0, 0.3);
+    overflow: auto; /* So user can scroll through content if screen is not high enough */
+}
+.modal {
+    background: var(--button-background);
+    border: 2px solid;
+    border-color: var(--primary-color);
+    border-radius: 3px;
+    color: var(--primary-color);
+    display: inline-block;
+    margin: auto;
+    padding: 15px;
+    text-align: center;
+    width: 300px;
+}
+.modal__close {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    padding: 2px;
 }
 
 /* Animations
