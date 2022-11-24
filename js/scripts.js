@@ -170,7 +170,7 @@ let pokemonRepository = (function() {
     });
 
     // Return a new object with keys that penetrate the IIFE ("public functions"). Since they all have the same names for key and value, I could also just write add, filterPokemons, getAll, etc.
-    // Does filterPokemons belong here?
+    // Does filterPokemons belong here? What about others. ... when I remove showDetails/hideDetails it it still works!
     return {
         add: add,
         filterPokemons: filterPokemons,
