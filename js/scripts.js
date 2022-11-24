@@ -130,6 +130,8 @@ let pokemonRepository = (function() {
             let closeButtonElement = document.createElement('button');
             closeButtonElement.classList.add('modal__close');
             closeButtonElement.innerText = 'X';
+            closeButtonElement.addEventListener('click', hideDetails);
+            
             let titleElement = document.createElement('h2');
             titleElement.innerText = pokemon.name;
             let contentElement = document.createElement('p');
@@ -144,8 +146,28 @@ let pokemonRepository = (function() {
             modalContainer.appendChild(pokemonModal);
 
             modalContainer.classList.add('is-visible');
+
+            // Closing of modal when user clicks outside of modal (-> on modalContainer)
+            modalContainer.addEventListener('click', function(event) {
+                let target = event.target;
+                if (target === modalContainer) {
+                    hideDetails();
+                }
+            });
         });
     }
+
+    // Function to be called when modal's closing button is clicked, esc key is pressed or when user clicks outside of modal
+    function hideDetails() {
+        modalContainer.classList.remove('is-visible');
+    }
+
+    // Escape key event listener should only work when modal is visible.
+    window.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+            hideDetails();
+        }
+    });
 
     // Return a new object with keys that penetrate the IIFE ("public functions"). Since they all have the same names for key and value, I could also just write add, filterPokemons, getAll, etc.
     // Does filterPokemons belong here?
@@ -156,7 +178,8 @@ let pokemonRepository = (function() {
         addListPokemon: addListPokemon,
         loadList: loadList,
         loadDetails: loadDetails,
-        showDetails: showDetails
+        showDetails: showDetails,
+        hideDetails: hideDetails
     };
 
 // The IIFE function is self-executing, hence why it ends with parentheses
