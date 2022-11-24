@@ -116,10 +116,11 @@ let pokemonRepository = (function() {
         });
     }
 
-    // Creating function to be called upon clicking Pokemon buttons: 1. Fetch pokemon details (only done when clicked on button) and then 2. print them into the console. The pokemon object is to be passed as a parameter.
+    // Creating function to be called upon clicking Pokemon buttons: 1. Fetch pokemon details (only done when clicked on button) and then 2. open a modal with Pokemon details (by adding "is-visible" class to modal-container)
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
-            console.log (pokemon);
+            let modalContainer = document.querySelector('#modal-container');
+            modalContainer.classList.add('is-visible');
         });
     }
 
