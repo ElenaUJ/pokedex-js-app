@@ -5,6 +5,8 @@ let pokemonRepository = (function() {
     let pokemonList = [];
 
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=500';
+
+    let modalContainer = document.querySelector('#modal-container');
     
     // Function declarations are not ended with a semicolon, because they are not executable statements.
     // This function will be used when Pokemons can be added without hardcoding the values.
@@ -119,8 +121,6 @@ let pokemonRepository = (function() {
     // Creating function to be called upon clicking Pokemon buttons: 1. Fetch pokemon details (only done when clicked on button) and then 2. open a modal with Pokemon details (by adding "is-visible" class to modal-container)
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
-            let modalContainer = document.querySelector('#modal-container');
-
             // Clearing all existing modal content
             modalContainer.innerHTML = '';
 
