@@ -135,7 +135,7 @@ let pokemonRepository = (function() {
             let titleElement = document.createElement('h2');
             titleElement.innerText = pokemon.name;
             let contentElement = document.createElement('p');
-            contentElement.innerText = 'height: ' + pokemon.height + ' dm, type(s): ' + pokemon.types;
+            contentElement.innerHTML = 'height: ' + pokemon.height + ' dm<br>type(s): ' + pokemon.types;
             let imageElement = document.createElement('img');
             imageElement.src = pokemon.imageUrl;
 
