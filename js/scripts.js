@@ -53,7 +53,7 @@ let pokemonRepository = (function() {
         // Function takes pokemon as parameter, so it has to be used as a selector for the button text.
         button.innerText = pokemon.name;
         // Adding class="button" to listItem. Specific CSS style for this class defined in CSS stylesheet.
-        button.classList.add('button');
+        button.classList.add('pokemon-button');
         // Appending button to listPokemon as its child.
         listPokemon.appendChild(button);
         // Appending listPokemon to pokemonList as its child.
