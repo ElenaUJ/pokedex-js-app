@@ -7,6 +7,7 @@
 - [links]
 - [process]
     - [programming_languages]
+    - [used_resources]
 
 ## Overview
 
@@ -28,6 +29,10 @@ It loads data from an external API and enables the viewing of Pokémon details o
 
 ### Programming Languages
 
-    - HTML
-    - CSS
-    - JavaScript
+- HTML
+- CSS
+- JavaScript ES6 (using polyfills for older browsers)
+
+### Used resources
+
+- [PokéAPI used for this application](https://pokeapi.co/api/v2/pokemon/)
