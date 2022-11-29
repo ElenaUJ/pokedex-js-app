@@ -94,23 +94,22 @@ let pokemonRepository = (function() {
         })
     }
 
-    // Could I change the name of the parameter item to pokemon as well?
-    function loadDetails (item) {
         // Question: How can we use the detailsUrl key here? I thought one cannot use variables beyond the scope of a function, and detailsUrl was defined within the loadList() function.
-        let url = item.detailsUrl;
+    function loadDetails (pokemon) {
+        let url = pokemon.detailsUrl;
         return fetch(url).then (function (response) {
             return response.json();
         }). then (function (details) {
             // Adding details to the item (parameter of the loadDetails() function) by defining (item object-keys?) variables (Question: Why is let not necessary here?)
             // .sprites/front_default etc. keys originate in the API. Sprites are collections of images put into a single image.
-            item.imageUrl = details.sprites.front_default;
-            item.height = details.height;
+            pokemon.imageUrl = details.sprites.front_default;
+            pokemon.height = details.height;
             // Extracting an array of types from the API type information. Their suggestion is to create a forLoop to iterate throught the API types object and pushing just the types into an empty array of types- and then display that to the user. Like so:
             let arrayOfTypes = [];
             details.types.forEach(function (item) {
                 arrayOfTypes.push(item.type.name);
             });
-            item.types = arrayOfTypes;
+            pokemon.types = arrayOfTypes;
         }).catch (function (e) {
             console.error(e);
         });
