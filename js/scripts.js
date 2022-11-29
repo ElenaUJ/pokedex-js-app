@@ -94,13 +94,13 @@ let pokemonRepository = (function() {
         })
     }
 
-        // Question: How can we use the detailsUrl key here? I thought one cannot use variables beyond the scope of a function, and detailsUrl was defined within the loadList() function.
     function loadDetails (pokemon) {
+        // DetailsUrl was defined within the loadList() function. loadList() is called when loading the page, running .addListPokemon() for every Pokemon in the API. AddListPokemon() hosts an event listener on the Pok'emon button, calling showDetails() upon button click, which in turn contains loadDetails() as a promise.
         let url = pokemon.detailsUrl;
         return fetch(url).then (function (response) {
             return response.json();
         }). then (function (details) {
-            // Adding details to the item (parameter of the loadDetails() function) by defining (item object-keys?) variables (Question: Why is let not necessary here?)
+            // Adding details to pokemon by defining pokemon object-keys. (Let is not necessary to define new keys or key-value pairs.)
             // .sprites/front_default etc. keys originate in the API. Sprites are collections of images put into a single image.
             pokemon.imageUrl = details.sprites.front_default;
             pokemon.height = details.height;
@@ -166,8 +166,7 @@ let pokemonRepository = (function() {
         }
     });
 
-    // Return a new object with keys that penetrate the IIFE ("public functions"). Since they all have the same names for key and value, I could also just write add, filterPokemons, getAll, etc.
-    // Does filterPokemons belong here? What about others. ... when I remove showDetails/hideDetails it it still works!
+    // Return a new object with keys that penetrate the IIFE ("public functions") - a dictionary.
     return {
         add: add,
         filterPokemons: filterPokemons,
