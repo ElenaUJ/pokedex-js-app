@@ -87,8 +87,6 @@ let pokemonRepository = (function() {
                     detailsUrl: item.url
                 };
                 add(pokemon);
-                // Prints all Pokemon in the console
-                console.log(pokemon);
             }); 
         }).catch(function (e) {
             hideLoadingMessage();
