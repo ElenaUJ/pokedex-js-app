@@ -134,6 +134,7 @@ let pokemonRepository = (function() {
             let contentElement = document.createElement('p');
             contentElement.innerHTML = 'height: ' + pokemon.height + ' dm<br>type(s): ' + pokemon.types;
             let imageElement = document.createElement('img');
+            imageElement.classList.add('modal__image');
             imageElement.src = pokemon.imageUrl;
 
             pokemonModal.appendChild(closeButtonElement);
