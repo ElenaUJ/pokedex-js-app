@@ -109,7 +109,8 @@ let pokemonRepository = (function() {
             details.types.forEach(function (item) {
                 arrayOfTypes.push(item.type.name);
             });
-            pokemon.types = arrayOfTypes;
+            // .join() defines the separator between printed array items
+            pokemon.types = arrayOfTypes.join(', ');
         }).catch (function (e) {
             console.error(e);
         });
