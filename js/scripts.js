@@ -152,6 +152,18 @@ let pokemonRepository = (function() {
                     hideDetails();
                 }
             });
+
+            // Swiping between Pokemon modals
+            pokemonModal.addEventListener('pointerdown', function (event) {
+                // Question: Why won't this work when I add `let`? What are the following exactly? Defining a variable? Setting their values? Functions?
+                touchStartX = event.clientX;
+                touchStartY = event.clientY;
+            });
+            pokemonModal.addEventListener('pointerup', function (event) {
+                touchEndX = event.clientX;
+                touchEndY = event.clientY;
+                handleSwipes(touchStartX, touchStartY, touchEndX, touchEndY);
+            });
         });
     }
 
@@ -167,6 +179,27 @@ let pokemonRepository = (function() {
         }
     });
 
+    // Function to be called when swiping between modals
+    // Question: In the code example I used to help, at the ver start of their code they set touchstartX, etc (basicallyall coordinates) to 0, like let touchStartX = 0, etc. Why?
+    function handleSwipes (touchStartX, touchStartY, touchEndX, touchEndY) {
+        let deltaX = touchEndX - touchStartX;
+        let deltaY = touchEndY - touchStartY;
+        // Math.abs() returns absolute value of a number (so positive or negativ won't play a role)
+        if ( Math.abs(deltaX) > Math.abs(deltaY) ) {
+            if ( deltaX > 0 ) {
+                console.log('swipe to next Pokemon (right)');
+            } else {
+                console.log('swipe to previous Pokemon (left)');
+            }
+        } else if ( Math.abs(deltaX) < Math.abs(deltaY) ) {
+            if ( deltaY > 0 ) {
+                console.log('swipe to next Pokemon (down)');
+            } else {
+                console.log('swipe to previous Pokemon (up)');
+            }
+        }
+    }
+    
     // Return a new object with keys that penetrate the IIFE ("public functions") - a dictionary.
     return {
         add: add,
@@ -176,7 +209,8 @@ let pokemonRepository = (function() {
         loadList: loadList,
         loadDetails: loadDetails,
         showDetails: showDetails,
-        hideDetails: hideDetails
+        hideDetails: hideDetails,
+        handleSwipes: handleSwipes
     };
 
 // The IIFE function is self-executing, hence why it ends with parentheses
