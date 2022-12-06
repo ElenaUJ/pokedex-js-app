@@ -82,6 +82,8 @@ ul {
     flex-direction: column;
     margin: auto;
     padding: 15px;
+    /* Disables browser pointer actions except pinch-zoom */
+    touch-action: pinch-zoom; 
     text-align: center;
     width: 300px;
 }

@@ -66,7 +66,7 @@ let pokemonRepository = (function() {
     }
 
     // Promise-fetch-function: API URL will be fetched. Result of the promise is the response which will be converted to a JSON in another promise function. When that is successful, a forEach loop will be run on each Pokemon item in the json.results array, creating a pokemon variable object containing two keys, name and detailsUrl. After, run add() function (declared above) to add all those pokeons to the pokemonList array.
-    function loadList () {
+    function loadList() {
         // Show and hide loading message definitions. Alternatively, instead of modifyig my HTML file, I could create a paragraph element in the DOM, define its inner text and append it to the <main> parent. For hideLoadingMessage I could remove it again. Is that a better way of doing it? I would have to add html though, which as per course is not recommended because it is more error-prone. Another option: To create a parargraph in the HTML file, while loading setting its inner text to please wait. To hide the message when it's done loading, set the inner text to an empty string.
         let loadingMessage = document.querySelector('.loading-message');
         function showLoadingMessage () {
@@ -78,13 +78,17 @@ let pokemonRepository = (function() {
         showLoadingMessage();
         return fetch(apiUrl).then(function (response) {
             return response.json();
-        // json represesents the API object in JSON format - .result is an object key of the external API including an array of Pokemon objects.
+        // json represents the API object in JSON format - .results is an object key of the external API including an array of Pokemon objects.
         }).then(function (json) {
             hideLoadingMessage();
-            json.results.forEach(function (item) {
+            // Question: Am I allowed to do this at all or is that bad practice? I have to access the array in my handleSwipes() function. I had read somewhere, when I don't add let, the variable will be accessible everywhere. But what am I defining here? A global variable? I feel like that should be avoided... it there a way to easily solve this?
+            pokemonArray = json.results;
+            pokemonArray.forEach(function (item) {
                 let pokemon = {
                     name: item.name,
-                    detailsUrl: item.url
+                    detailsUrl: item.url,
+                    // Important for swipe function
+                    index: pokemonArray.indexOf(item)
                 };
                 add(pokemon);
             }); 
@@ -95,7 +99,7 @@ let pokemonRepository = (function() {
     }
 
     function loadDetails (pokemon) {
-        // DetailsUrl was defined within the loadList() function. loadList() is called when loading the page, running .addListPokemon() for every Pokemon in the API. AddListPokemon() hosts an event listener on the Pok'emon button, calling showDetails() upon button click, which in turn contains loadDetails() as a promise.
+        // detailsUrl was defined within the loadList() function. loadList() is called when loading the page, running .addListPokemon() for every Pokemon in the API. AddListPokemon() hosts an event listener on the Pokemon button, calling showDetails() upon button click, which in turn contains loadDetails() as a promise.
         let url = pokemon.detailsUrl;
         return fetch(url).then (function (response) {
             return response.json();
@@ -153,6 +157,17 @@ let pokemonRepository = (function() {
                     hideDetails();
                 }
             });
+
+            // Swiping between Pokemon modals
+            pokemonModal.addEventListener('pointerdown', function (event) {
+                touchStartX = event.clientX;
+                touchStartY = event.clientY;
+            });
+            pokemonModal.addEventListener('pointerup', function (event) {
+                touchEndX = event.clientX;
+                touchEndY = event.clientY;
+                handleSwipes(pokemon, touchStartX, touchStartY, touchEndX, touchEndY);
+            });
         });
     }
 
@@ -168,6 +183,49 @@ let pokemonRepository = (function() {
         }
     });
 
+    // Function to be called when swiping between modals
+    // Question: In the code example I used to help, at the very start of their code they set touchstartX, etc (basicallyall coordinates) to 0, like let touchStartX = 0, etc. Why?
+    // Question: This function has 5 parameters. Does it matter? Is there a better way?
+    function handleSwipes (pokemon, touchStartX, touchStartY, touchEndX, touchEndY) {
+
+        // If statements to avoid bugs when swiping at first or last Pokemon of array
+        if ( pokemon.index < pokemonArray.length - 1 ) {
+            let nextPokemonItem = pokemonArray[pokemon.index + 1];
+            // Important to define Pokemon object just like in loadList(), since pokemonArray[] just returns an item, but showDetails() (and within it, loadDetails()) works with an object and its keys. 
+            // Question: Is there a more straightforward way of doing this?
+            nextPokemon = {
+                name: nextPokemonItem.name,
+                detailsUrl: nextPokemonItem.url,
+                index: pokemonArray.indexOf(nextPokemonItem)
+            };
+        }
+        if ( pokemon.index > 0 ) {
+            let prevPokemonItem = pokemonArray[pokemon.index - 1];
+            prevPokemon = {
+                name: prevPokemonItem.name,
+                detailsUrl: prevPokemonItem.url,
+                index: pokemonArray.indexOf(prevPokemonItem)
+            };
+        }
+
+        let deltaX = touchEndX - touchStartX;
+        let deltaY = touchEndY - touchStartY;
+        // Math.abs() returns absolute value of a number (so positive or negativ won't play a role)
+        if ( Math.abs(deltaX) > Math.abs(deltaY) ) {
+            if ( deltaX > 0 ) {
+                showDetails(nextPokemon);
+            } else {
+                showDetails(prevPokemon);
+            }
+        } else if ( Math.abs(deltaX) < Math.abs(deltaY) ) {
+            if ( deltaY > 0 ) {
+                showDetails(nextPokemon);
+            } else {
+                showDetails(prevPokemon);
+            }
+        }
+    }
+    
     // Return a new object with keys that penetrate the IIFE ("public functions") - a dictionary.
     return {
         add: add,
@@ -177,7 +235,8 @@ let pokemonRepository = (function() {
         loadList: loadList,
         loadDetails: loadDetails,
         showDetails: showDetails,
-        hideDetails: hideDetails
+        hideDetails: hideDetails,
+        handleSwipes: handleSwipes
     };
 
 // The IIFE function is self-executing, hence why it ends with parentheses
