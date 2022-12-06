@@ -81,10 +81,14 @@ let pokemonRepository = (function() {
         // json represents the API object in JSON format - .results is an object key of the external API including an array of Pokemon objects.
         }).then(function (json) {
             hideLoadingMessage();
-            json.results.forEach(function (item) {
+            // Question: Am I allowed to do this at all or is that bad practice? I have to access the array in my handleSwipes() function. I had read somewhere, when I don't add let, the variable will be accessible everywhere. But what am I defining here? A global variable? I feel like that should be avoided... it there a way to easily solve this?
+            pokemonArray = json.results;
+            pokemonArray.forEach(function (item) {
                 let pokemon = {
                     name: item.name,
-                    detailsUrl: item.url
+                    detailsUrl: item.url,
+                    // Important for swipe function
+                    index: pokemonArray.indexOf(item)
                 };
                 add(pokemon);
             }); 
@@ -155,14 +159,13 @@ let pokemonRepository = (function() {
 
             // Swiping between Pokemon modals
             pokemonModal.addEventListener('pointerdown', function (event) {
-                // Question: Why won't this work when I add `let`? What are the following exactly? Defining a variable? Setting their values? Functions?
                 touchStartX = event.clientX;
                 touchStartY = event.clientY;
             });
             pokemonModal.addEventListener('pointerup', function (event) {
                 touchEndX = event.clientX;
                 touchEndY = event.clientY;
-                handleSwipes(touchStartX, touchStartY, touchEndX, touchEndY);
+                handleSwipes(pokemon, touchStartX, touchStartY, touchEndX, touchEndY);
             });
         });
     }
@@ -180,22 +183,44 @@ let pokemonRepository = (function() {
     });
 
     // Function to be called when swiping between modals
-    function handleSwipes (touchStartX, touchStartY, touchEndX, touchEndY) {
     // Question: In the code example I used to help, at the very start of their code they set touchstartX, etc (basicallyall coordinates) to 0, like let touchStartX = 0, etc. Why?
+    // Question: This function has 5 parameters. Does it matter? Is there a better way?
+    function handleSwipes (pokemon, touchStartX, touchStartY, touchEndX, touchEndY) {
+
+        // If statements to avoid bugs when swiping at first or last Pokemon of array
+        if ( pokemon.index < pokemonArray.length - 1 ) {
+            let nextPokemonItem = pokemonArray[pokemon.index + 1];
+            // Important to define Pokemon object just like in loadList(), since pokemonArray[] just returns an item, but showDetails() (and within it, loadDetails()) works with an object and its keys. 
+            // Question: Is there a more straightforward way of doing this?
+            nextPokemon = {
+                name: nextPokemonItem.name,
+                detailsUrl: nextPokemonItem.url,
+                index: pokemonArray.indexOf(nextPokemonItem)
+            };
+        }
+        if ( pokemon.index > 0 ) {
+            let prevPokemonItem = pokemonArray[pokemon.index - 1];
+            prevPokemon = {
+                name: prevPokemonItem.name,
+                detailsUrl: prevPokemonItem.url,
+                index: pokemonArray.indexOf(prevPokemonItem)
+            };
+        }
+
         let deltaX = touchEndX - touchStartX;
         let deltaY = touchEndY - touchStartY;
         // Math.abs() returns absolute value of a number (so positive or negativ won't play a role)
         if ( Math.abs(deltaX) > Math.abs(deltaY) ) {
             if ( deltaX > 0 ) {
-                console.log('swipe to next Pokemon (right)');
+                showDetails(nextPokemon);
             } else {
-                console.log('swipe to previous Pokemon (left)');
+                showDetails(prevPokemon);
             }
         } else if ( Math.abs(deltaX) < Math.abs(deltaY) ) {
             if ( deltaY > 0 ) {
-                console.log('swipe to next Pokemon (down)');
+                showDetails(nextPokemon);
             } else {
-                console.log('swipe to previous Pokemon (up)');
+                showDetails(prevPokemon);
             }
         }
     }
