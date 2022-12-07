@@ -7,6 +7,7 @@
 - [links]
 - [process]
     - [programming_languages]
+    - [dependencies]
     - [used_resources]
 
 ## Overview
@@ -33,6 +34,14 @@ It loads data from an external API and enables the viewing of Pokémon details o
 - HTML
 - CSS
 - JavaScript ES6 (using polyfills for older browsers)
+
+### Dependencies
+
+- Polyfills
+    - [Promise polyfill](https://raw.githubusercontent.com/taylorhakes/promise-polyfill/master/dist/polyfill.min.js)
+    - [Fetch polyfill](https://github.com/github/fetch/releases/download/v3.0.0/fetch.umd.js)
+- Frameworks
+    - [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/)
 
 ### Used resources
 
