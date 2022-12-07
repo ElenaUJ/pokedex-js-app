@@ -10,10 +10,6 @@
 
 /* Generic
 -----------------------------------------------------------*/
-* {
-    /* border and padding are included in width of element */
-    box-sizing: border-box;
-}
 .hidden {
     display: none;
 }
