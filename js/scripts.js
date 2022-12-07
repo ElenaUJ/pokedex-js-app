@@ -212,15 +212,16 @@ let pokemonRepository = (function() {
         let deltaY = touchEndY - touchStartY;
         // Math.abs() returns absolute value of a number (so positive or negativ won't play a role)
         if ( Math.abs(deltaX) > Math.abs(deltaY) ) {
-            if ( deltaX > 0 ) {
+            // Only swipe if movement greater than 30 px, ignore smaller movements
+            if ( deltaX > 30 ) {
                 showDetails(prevPokemon);
-            } else {
+            } else if ( deltaX < -30) {
                 showDetails(nextPokemon);
             }
         } else if ( Math.abs(deltaX) < Math.abs(deltaY) ) {
-            if ( deltaY > 0 ) {
+            if ( deltaY > 30 ) {
                 showDetails(prevPokemon);
-            } else {
+            } else if ( deltaY < -30) {
                 showDetails(nextPokemon);
             }
         }
