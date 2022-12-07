@@ -24,7 +24,7 @@ It loads data from an external API and enables the viewing of Pokémon details o
 ## Links
 
 - [Code URL](https://github.com/ElenaUJ/pokedex-js-app)
-- [Live Site URL](insert link here)
+- [Live Site URL](https://elenauj.github.io/pokedex-js-app/)
 
 ## Process
 
