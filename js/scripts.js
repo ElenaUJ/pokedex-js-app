@@ -213,15 +213,15 @@ let pokemonRepository = (function() {
         // Math.abs() returns absolute value of a number (so positive or negativ won't play a role)
         if ( Math.abs(deltaX) > Math.abs(deltaY) ) {
             if ( deltaX > 0 ) {
-                showDetails(nextPokemon);
-            } else {
                 showDetails(prevPokemon);
+            } else {
+                showDetails(nextPokemon);
             }
         } else if ( Math.abs(deltaX) < Math.abs(deltaY) ) {
             if ( deltaY > 0 ) {
-                showDetails(nextPokemon);
-            } else {
                 showDetails(prevPokemon);
+            } else {
+                showDetails(nextPokemon);
             }
         }
     }
