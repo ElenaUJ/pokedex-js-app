@@ -108,8 +108,9 @@ let pokemonRepository = (function() {
             return response.json();
         }). then (function (details) {
             // Adding details to pokemon by defining pokemon object-keys. (Let is not necessary to define new keys or key-value pairs.)
-            // .sprites/front_default etc. keys originate in the API. Sprites are collections of images put into a single image.
-            pokemon.imageUrl = details.sprites.front_default;
+            // Sprites are collections of images put into a single image.
+            pokemon.frontImageUrl = details.sprites.front_default;
+            pokemon.backImageUrl = details.sprites.back_default;
             pokemon.height = details.height;
             // Extracting an array of types from the API type information. Their suggestion is to create a forLoop to iterate throught the API types object and pushing just the types into an empty array of types- and then display that to the user. Like so:
             let arrayOfTypes = [];
