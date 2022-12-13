@@ -52,8 +52,7 @@ let pokemonRepository = (function() {
         listPokemon.classList.add('col');
     
         let button = document.createElement('button');
-        // Function takes pokemon as parameter, so it has to be used as a selector for the button text.
-        button.innerText = pokemon.name;
+        button.innerText = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);;
         // Adding class="pokemon-button" to listItem. Specific CSS style for this class defined in CSS stylesheet.
         button.classList.add('pokemon-button');
         button.setAttribute('data-toggle', 'modal');
