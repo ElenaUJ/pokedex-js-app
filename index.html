@@ -11,15 +11,30 @@
     <link rel="stylesheet" href="css/styles.css" type="text/css">
   </head>
   <body>
-    <main>
-      <ul class="pokemon-list"></ul>
+    <nav class="navbar fixed-top">
       <h1 class="navbar-text">Pokédex</h1>
+    </nav>
+    <main class="container">
+      <ul class="pokemon-list list-group list-group-horizontal row"></ul>
       <p class="hidden loading-message">Please wait 
         <span class="jumping-dots dot-1">.</span>
         <span class="jumping-dots dot-2">.</span>
         <span class="jumping-dots dot-3">.</span>
       </p>
-      <div id="modal-container"></div>
+      <div class="modal" tab-index="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title"></h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                <!-- &times; translates into multiplication sign-->
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body"></div>
+          </div>
+        </div>
+      </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
