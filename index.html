@@ -16,11 +16,11 @@
     </nav>
     <main class="container">
       <ul class="pokemon-list list-group list-group-horizontal row"></ul>
-      <p class="hidden loading-message">Please wait 
-        <span class="jumping-dots dot-1">.</span>
-        <span class="jumping-dots dot-2">.</span>
-        <span class="jumping-dots dot-3">.</span>
-      </p>
+      <div class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
       <div class="modal" tab-index="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -31,7 +31,13 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body"></div>
+            <div class="modal-body">
+              <div class="text-center">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
