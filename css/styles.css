@@ -8,12 +8,6 @@
     --button-hover: #e0b409;
 }
 
-/* Generic
------------------------------------------------------------*/
-.hidden {
-    display: none;
-}
-
 /* Element style
 -----------------------------------------------------------*/
 body {
@@ -48,8 +42,9 @@ ul {
 }
 /* Component style
 -----------------------------------------------------------*/
-.loading-message {
-    padding-top: 50px;
+.spinner-border {
+    color: var(--primary-color);
+    margin: 50px;
 }
 .modal-content {
     background: var(--button-background);
