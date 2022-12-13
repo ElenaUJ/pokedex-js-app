@@ -22,15 +22,12 @@ body {
     font-family: 'Albert Sans';
     font-size: 18px;
     font-weight: 300;
-    line-height: 1.5;
-    margin: 50px;
-    text-align: center;
+    line-height: 1.2;
 }
 h1 {
     font-family: 'Miltonian';
-    font-size: 40px;
+    font-size: 28px;
     font-weight: 400;
-    text-align: center;
 }
 h2 {   
     font-family: 'Miltonian Tattoo';
@@ -56,7 +53,7 @@ ul {
     /* To match real Pokemon card dimensions */
     height: 419px;
     margin: auto;
-    padding: 15px 15px 50px 15px;
+    padding: 15px;
     /* Disables browser pointer actions except pinch-zoom */
     touch-action: pinch-zoom; 
     width: 300px;
@@ -64,6 +61,15 @@ ul {
 .modal-header {
     border: none;
 }
+.modal-img {
+    margin-top: 15px;
+    width: 50%;
+}
+.modal-text {
+    bottom: 0;
+    padding-bottom: 16px;
+    position: absolute;
+    text-align: left;
 }
 .pokemon-button {
     background-color: var(--button-background);
