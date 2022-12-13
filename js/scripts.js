@@ -167,6 +167,7 @@ let pokemonRepository = (function() {
             modalText.appendChild(abilitiesElement);
 
             // Swiping between Pokemon modals
+            // Question: Why does this only work when within the showDetails() function?
             pokemonModal.addEventListener('pointerdown', function (event) {
                 touchStartX = event.clientX;
                 touchStartY = event.clientY;
@@ -187,8 +188,8 @@ let pokemonRepository = (function() {
     });
 
     // Function to be called when swiping between modals
-    // Question: In the code example I used to help, at the very start of their code they set touchstartX, etc (basicallyall coordinates) to 0, like let touchStartX = 0, etc. Why?
-    // Question: This function has 5 parameters. Does it matter? Is there a better way?
+    // Question: In the code example I used to help, at the very start of their code they set touchstartX, etc (basically all coordinates) to 0, like let touchStartX = 0, etc. Why?
+    // Question: This function has 5 parameters. Is it bad practice having so many? Is there a better way?
     function handleSwipes (pokemon, touchStartX, touchStartY, touchEndX, touchEndY) {
 
         // If statements to avoid bugs when swiping at first or last Pokemon of array
