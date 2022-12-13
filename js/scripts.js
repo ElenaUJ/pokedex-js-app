@@ -119,6 +119,11 @@ let pokemonRepository = (function() {
             });
             // .join() defines the separator between printed array items
             pokemon.types = arrayOfTypes.join(', ');
+            let arrayOfAbilities = [];
+            details.abilities.forEach(function (item) {
+                arrayOfAbilities.push(item.ability.name);
+            });
+            pokemon.abilities = arrayOfAbilities.join(', ');
         }).catch (function (e) {
             console.error(e);
         });
