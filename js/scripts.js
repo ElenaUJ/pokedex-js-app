@@ -48,12 +48,16 @@ let pokemonRepository = (function() {
 
         // Creating list item elements.
         let listPokemon = document.createElement('li');
+        // Adding Bootstrap utility class
+        listPokemon.classList.add('col');
     
         let button = document.createElement('button');
         // Function takes pokemon as parameter, so it has to be used as a selector for the button text.
         button.innerText = pokemon.name;
         // Adding class="button" to listItem. Specific CSS style for this class defined in CSS stylesheet.
         button.classList.add('pokemon-button');
+        button.setAttribute('data-toggle', 'modal');
+        button.setAttribute('data-target', '.modal');
         // Appending button to listPokemon as its child.
         listPokemon.appendChild(button);
         // Appending listPokemon to pokemonList as its child.
