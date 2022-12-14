@@ -110,6 +110,7 @@ let pokemonRepository = (function() {
         return fetch(url).then (function (response) {
             return response.json();
         }). then (function (details) {
+            hideLoadingSpinner(loadingContainer);
             // Adding details to pokemon by defining pokemon object-keys. (Let is not necessary to define new keys or key-value pairs.)
             // Sprites are collections of images put into a single image.
             pokemon.frontImageUrl = details.sprites.front_default;
