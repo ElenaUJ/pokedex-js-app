@@ -13,14 +13,12 @@
   <body>
     <nav class="navbar fixed-top">
       <h1 class="navbar-text">Pokédex</h1>
+      <form class="navbar-form form-inline">
+        <input class="form-control search" type="search" placeholder="Search" aria-label="Search">
+      </form>
     </nav>
-    <main class="container">
+    <main class="main container">
       <ul class="pokemon-list list-group list-group-horizontal row"></ul>
-      <div class="text-center">
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
       <div class="modal" tab-index="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -31,13 +29,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <div class="text-center">
-                <div class="spinner-border" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-              </div>
-            </div>
+            <div class="modal-body"></div>
           </div>
         </div>
       </div>

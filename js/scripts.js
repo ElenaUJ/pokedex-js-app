@@ -7,8 +7,6 @@ let pokemonRepository = (function() {
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1154';
 
     let pokemonModal = document.querySelector('.modal-dialog');
-
-    let loadingSpinner = document.querySelector('.spinner-border');
     
     // Function declarations are not ended with a semicolon, because they are not executable statements.
     // This function will be used when Pokemons can be added without hardcoding the values.
@@ -70,21 +68,34 @@ let pokemonRepository = (function() {
         })
     }
 
-    // Hide and show Bootstrap loading spinner function. For Pokemon list, spinner will be shown per default before page is loaded. For modal, function has to be called everytime next Pokemon Details are  loaded.
-    function hideLoadingSpinner () {
-        loadingSpinner.classList.add('hidden');
+    // Hide and show Bootstrap loading spinner functions.
+    // Question: I am observing a bug when switching modals. When a loading spinner is there, it's not one but several underneath each other. I don't understand what I did wrong. Or if this is related to the other bug that crashes my app when I load too many Pokemon. Do you have an idea?
+    function showLoadingSpinner (spinnerLocation) {
+        let spinnerContainer = document.createElement('div');
+        spinnerContainer.classList.add('text-center');
+        let loadingSpinner = document.createElement('div');
+        loadingSpinner.classList.add('spinner-border');
+        loadingSpinner.setAttribute('role', 'status');
+        let spinnerText = document.createElement('span');
+        spinnerText.classList.add('sr-only');
+        spinnerText.innerText = 'Loading...';
+        loadingSpinner.appendChild(spinnerText);
+        spinnerContainer.appendChild(loadingSpinner);
+        spinnerLocation.appendChild(spinnerContainer);
     }
-    function showLoadingSpinner () {
-        loadingSpinner.classList.remove('hidden');
+    function hideLoadingSpinner (spinnerLocation) {
+        spinnerLocation.removeChild(spinnerLocation.lastChild);
     }
 
     // Promise-fetch-function: API URL will be fetched. Result of the promise is the response which will be converted to a JSON in another promise function. When that is successful, a forEach loop will be run on each Pokemon item in the json.results array, creating a pokemon variable object containing two keys, name and detailsUrl. After, run add() function (declared above) to add all those pokeons to the pokemonList array.
     function loadList() {
+        let spinnerLocation = document.querySelector('.main');
+        showLoadingSpinner(spinnerLocation);
         return fetch(apiUrl).then(function (response) {
             return response.json();
         // json represents the API object in JSON format - .results is an object key of the external API including an array of Pokemon objects.
         }).then(function (json) {
-            hideLoadingSpinner();
+            hideLoadingSpinner(spinnerLocation);
             // Question: Am I allowed to do this at all or is that bad practice? I have to access the array in my handleSwipes() function. I had read somewhere, when I don't add let, the variable will be accessible everywhere. But what am I defining here? A global variable? I feel like that should be avoided... it there a way to easily solve this?
             pokemonArray = json.results;
             pokemonArray.forEach(function (item) {
@@ -97,20 +108,20 @@ let pokemonRepository = (function() {
                 add(pokemon);
             }); 
         }).catch(function (e) {
-            hideLoadingSpinner();
+            hideLoadingSpinner(spinnerLocation);
             console.error(e);
         })
     }
 
     function loadDetails (pokemon) {
         // detailsUrl was defined within the loadList() function. loadList() is called when loading the page, running .addListPokemon() for every Pokemon in the API. AddListPokemon() hosts an event listener on the Pokemon button, calling showDetails() upon button click, which in turn contains loadDetails() as a promise.
+        let spinnerLocation = document.querySelector('.modal-body');
+        showLoadingSpinner(spinnerLocation);
         let url = pokemon.detailsUrl;
-        // Question: I don't know if this really works. I don't know how to find out.
-        showLoadingSpinner();
         return fetch(url).then (function (response) {
             return response.json();
-        }). then (function (details) {
-            hideLoadingSpinner(loadingContainer);
+        }).then(function (details) {
+            hideLoadingSpinner(spinnerLocation);
             // Adding details to pokemon by defining pokemon object-keys. (Let is not necessary to define new keys or key-value pairs.)
             // Sprites are collections of images put into a single image.
             pokemon.frontImageUrl = details.sprites.front_default;
@@ -142,7 +153,6 @@ let pokemonRepository = (function() {
 
             // Clearing previous modal content
             modalTitle.innerHTML = '';
-            // This should also hide the loading spinner?
             modalBody.innerHTML = '';
 
             // Creating modal content elements
@@ -253,16 +263,14 @@ let pokemonRepository = (function() {
         }
     }
 
-
-    
     // Return a new object with keys that penetrate the IIFE ("public functions") - a dictionary.
     return {
         add: add,
         filterPokemons: filterPokemons,
         getAll: getAll,
         addListPokemon: addListPokemon,
-        hideLoadingSpinner: hideLoadingSpinner,
         showLoadingSpinner: showLoadingSpinner,
+        hideLoadingSpinner: hideLoadingSpinner,
         loadList: loadList,
         loadDetails: loadDetails,
         showDetails: showDetails,
