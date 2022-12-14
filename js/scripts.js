@@ -182,6 +182,17 @@ let pokemonRepository = (function() {
                 touchEndY = event.clientY;
                 handleSwipes(pokemon, touchStartX, touchStartY, touchEndX, touchEndY);
             });
+                
+            // Switching Pokemon by pressing arrow keys
+            window.addEventListener('keydown', function(event) {
+                if ( event.key === 'ArrowUp' || event.key === 'ArrowLeft' ) {
+                    getPrevPokemon(pokemon);
+                    showDetails(prevPokemon);
+                } else if ( event.key === 'ArrowDown' || event.key === 'ArrowRight' ) {
+                    getNextPokemon(pokemon);
+                    showDetails(nextPokemon);
+                }
+            });
         });
     }
 
