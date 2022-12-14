@@ -55,7 +55,7 @@ let pokemonRepository = (function() {
     
         let button = document.createElement('button');
         button.innerText = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);;
-        // Adding class="pokemon-button" to listItem. Specific CSS style for this class defined in CSS stylesheet.
+        // Adding class="pokemon-button" to button. Specific CSS style for this class defined in CSS stylesheet.
         button.classList.add('pokemon-button');
         button.setAttribute('data-toggle', 'modal');
         button.setAttribute('data-target', '.modal');
@@ -137,7 +137,6 @@ let pokemonRepository = (function() {
     // Creating function to be called upon clicking Pokemon buttons: 1. Fetch pokemon details (only done when clicked on button) and then 2. open a modal with Pokemon details
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
-            // let modalHeader = document.querySelector('.modal-header');
             let modalTitle = document.querySelector('.modal-title');
             let modalBody = document.querySelector('.modal-body');
 
