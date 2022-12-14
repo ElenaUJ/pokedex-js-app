@@ -192,31 +192,37 @@ let pokemonRepository = (function() {
         }
     });
 
-    // Function to be called when swiping between modals
-    // Question: In the code example I used to help, at the very start of their code they set touchstartX, etc (basically all coordinates) to 0, like let touchStartX = 0, etc. Why?
-    // Question: This function has 5 parameters. Is it bad practice having so many? Is there a better way?
-    function handleSwipes (pokemon, touchStartX, touchStartY, touchEndX, touchEndY) {
-
-        // If statements to avoid bugs when swiping at first or last Pokemon of array
+    // Functions to define next or previous Pokemon needed for swiping/arrow key funcitonality
+    function getNextPokemon (pokemon) {
+        // If statements to avoid bugs when swiping at last Pokemon of array
         if ( pokemon.index < pokemonArray.length - 1 ) {
             let nextPokemonItem = pokemonArray[pokemon.index + 1];
             // Important to define Pokemon object just like in loadList(), since pokemonArray[] just returns an item, but showDetails() (and within it, loadDetails()) works with an object and its keys. 
-            // Question: Is there a more straightforward way of doing this?
-            nextPokemon = {
+            return nextPokemon = {
                 name: nextPokemonItem.name,
                 detailsUrl: nextPokemonItem.url,
                 index: pokemonArray.indexOf(nextPokemonItem)
             };
         }
+    }
+    function getPrevPokemon (pokemon) {
         if ( pokemon.index > 0 ) {
             let prevPokemonItem = pokemonArray[pokemon.index - 1];
-            prevPokemon = {
+            return prevPokemon = {
                 name: prevPokemonItem.name,
                 detailsUrl: prevPokemonItem.url,
                 index: pokemonArray.indexOf(prevPokemonItem)
             };
         }
+    }
 
+        // Function to be called when swiping between modals
+        // Question: In the code example I used to help, at the very start of their code they set touchstartX, etc (basically all coordinates) to 0, like let touchStartX = 0, etc. Why?
+        // Question: This function has 5 parameters. Is it bad practice having so many? Is there a better way?
+        // Question: When I swipe too quickly through the modal, the app crashes. It will iterate through many Pokemon very fast and then become unresponsive... do you have any idea why that is the case??
+        function handleSwipes (pokemon, touchStartX, touchStartY, touchEndX, touchEndY) {
+        getNextPokemon(pokemon);
+        getPrevPokemon(pokemon);
         let deltaX = touchEndX - touchStartX;
         let deltaY = touchEndY - touchStartY;
         // Math.abs() returns absolute value of a number (so positive or negativ won't play a role)
@@ -235,6 +241,8 @@ let pokemonRepository = (function() {
             }
         }
     }
+
+
     
     // Return a new object with keys that penetrate the IIFE ("public functions") - a dictionary.
     return {
