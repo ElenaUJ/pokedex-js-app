@@ -43,28 +43,35 @@ let pokemonRepository = (function() {
 
     // DOM manipulation
     function addListPokemon(pokemon) {
-
-        let pokemonList = document.querySelector('.pokemon-list');
-
-        // Creating list item elements.
-        let listPokemon = document.createElement('li');
-        // Adding Bootstrap utility class
-        listPokemon.classList.add('col');
+        // Details have to be loaded before referring to frontImageUrl
+        // Question: But ever since I did this (andding the image to the buttons) there is some loading error in the console (even though images are visible) and sometimes the Pokemon are rendered in a different order!
+        loadDetails(pokemon).then(function () {
+            let pokemonList = document.querySelector('.pokemon-list');
+            let listPokemon = document.createElement('li');
+            // Adding Bootstrap utility class
+            listPokemon.classList.add('col');
+        
+            let button = document.createElement('button');
+            let buttonText = document.createElement('h2');
+            button.appendChild(buttonText);
+            buttonText.innerText = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);;
+            // Adding class="pokemon-button" to button. Specific CSS style for this class defined in CSS stylesheet.
+            button.classList.add('pokemon-button');
+            button.setAttribute('data-toggle', 'modal');
+            button.setAttribute('data-target', '.modal');
+            let pokemonImage = document.createElement('img');
+            pokemonImage.src = pokemon.frontImageUrl;
+            button.appendChild(pokemonImage);
     
-        let button = document.createElement('button');
-        button.innerText = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);;
-        // Adding class="pokemon-button" to button. Specific CSS style for this class defined in CSS stylesheet.
-        button.classList.add('pokemon-button');
-        button.setAttribute('data-toggle', 'modal');
-        button.setAttribute('data-target', '.modal');
-        // Appending button to listPokemon as its child.
-        listPokemon.appendChild(button);
-        // Appending listPokemon to pokemonList as its child.
-        pokemonList.appendChild(listPokemon);
-
-        // Event Listener records any clicking on Pokemon buttons, which triggers the showDetails function declared above (Event Handler), using the clicked-on Pokemon as parameter.
-        button.addEventListener('click', function() {
-            showDetails(pokemon);
+            // Appending button to listPokemon as its child.
+            listPokemon.appendChild(button);
+            // Appending listPokemon to pokemonList as its child.
+            pokemonList.appendChild(listPokemon);
+    
+            // Event Listener records any clicking on Pokemon buttons, which triggers the showDetails function declared above (Event Handler), using the clicked-on Pokemon as parameter.
+            button.addEventListener('click', function() {
+                showDetails(pokemon);
+            });
         })
     }
 
@@ -274,6 +281,8 @@ let pokemonRepository = (function() {
         loadList: loadList,
         loadDetails: loadDetails,
         showDetails: showDetails,
+        getNextPokemon: getNextPokemon,
+        getPrevPokemon: getPrevPokemon,
         handleSwipes: handleSwipes
     };
 
