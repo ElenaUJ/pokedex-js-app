@@ -155,10 +155,12 @@ let pokemonRepository = (function() {
     // Creating function to be called upon clicking Pokemon buttons: 1. Fetch pokemon details (only done when clicked on button) and then 2. open a modal with Pokemon details
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
+
             let modalTitle = document.querySelector('.modal-title');
             let modalBody = document.querySelector('.modal-body');
 
             // Clearing previous modal content
+            // This doesn't seem to work properly?
             modalTitle.innerHTML = '';
             modalBody.innerHTML = '';
 
@@ -179,7 +181,6 @@ let pokemonRepository = (function() {
             typesElement.innerText = 'Types: ' + pokemon.types;
             let abilitiesElement = document.createElement('p');
             abilitiesElement.innerText = 'Abilities: ' + pokemon.abilities;
-
             modalTitle.appendChild(nameElement);
             modalBody.appendChild(imageElementFront);
             modalBody.appendChild(imageElementBack);
@@ -244,11 +245,11 @@ let pokemonRepository = (function() {
         }
     }
 
-        // Function to be called when swiping between modals
-        // Question: In the code example I used to help, at the very start of their code they set touchstartX, etc (basically all coordinates) to 0, like let touchStartX = 0, etc. Why?
-        // Question: This function has 5 parameters. Is it bad practice having so many? Is there a better way?
-        // Question: When I swipe too quickly through the modal, the app crashes. It will iterate through many Pokemon very fast and then become unresponsive... do you have any idea why that is the case??
-        function handleSwipes (pokemon, touchStartX, touchStartY, touchEndX, touchEndY) {
+    // Function to be called when swiping between modals
+    // Question: In the code example I used to help, at the very start of their code they set touchstartX, etc (basically all coordinates) to 0, like let touchStartX = 0, etc. Why?
+    // Question: This function has 5 parameters. Is it bad practice having so many? Is there a better way?
+    // Question: When I swipe too quickly through the modal, the app crashes. It will iterate through many Pokemon very fast and then become unresponsive... do you have any idea why that is the case??
+    function handleSwipes (pokemon, touchStartX, touchStartY, touchEndX, touchEndY) {
         getNextPokemon(pokemon);
         getPrevPokemon(pokemon);
         let deltaX = touchEndX - touchStartX;
