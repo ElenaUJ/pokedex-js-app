@@ -174,7 +174,7 @@ let pokemonRepository = (function () {
       modalBody.innerHTML = '';
 
       // Creating modal content elements
-      let nameElement = document.createElement('h2');
+      let nameElement = document.querySelector('.modal-title');
       nameElement.innerText =
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
       let imageElementFront = document.createElement('img');
@@ -191,7 +191,6 @@ let pokemonRepository = (function () {
       typesElement.innerText = 'Types: ' + pokemon.types;
       let abilitiesElement = document.createElement('p');
       abilitiesElement.innerText = 'Abilities: ' + pokemon.abilities;
-      modalTitle.appendChild(nameElement);
       modalBody.appendChild(imageElementFront);
       modalBody.appendChild(imageElementBack);
       modalBody.appendChild(modalText);

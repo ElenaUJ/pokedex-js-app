@@ -68,6 +68,9 @@ ul {
 .modal-header {
   border: none;
 }
+.modal-title {
+  font-size: 24px;
+}
 .modal-img {
   margin-top: 15px;
   width: 50%;
