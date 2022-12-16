@@ -3,7 +3,7 @@ let pokemonRepository = (function () {
   // Array definition (empty), becaue Pokemons will be pushed from API
   let pokemonList = [];
 
-  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=1154";
+  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=850";
 
   let pokemonModal = document.querySelector(".modal-dialog");
 
