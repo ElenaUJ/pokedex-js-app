@@ -44,6 +44,7 @@ It loads data from an external API and enables the viewing of Pokémon details o
 - Frameworks
   - [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/)
 - [ESLint rules](https://github.com/mydea/simple-pokedex-app/blob/master/.eslintrc)
+- [Prettier configuration](https://stackoverflow.com/questions/55430906/prettier-single-quote-for-javascript-and-json-double-quote-for-html-sass-and-c)
 
 ### Used resources
 
