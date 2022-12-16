@@ -20,7 +20,8 @@ It loads data from an external API and enables the viewing of Pokémon details o
 - Load data from an external source (API)
 - View a list of items
 - On user action (e.g., by clicking on a list item), view details for that item
-- Swipe between items
+- Switch between items using swipe or arrow keys
+- View loading spinners while fetching API data
 
 ## Links
 
