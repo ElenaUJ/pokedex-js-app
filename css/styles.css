@@ -1,127 +1,127 @@
 /* Settings (collection of variables that do not generate CSS, but are applied to classes)
 -----------------------------------------------------------*/
 :root {
-    /* colors */
-    --background-color: #FFFADE;
-    --primary-color: #3c5aa6;
-    --button-background: #ffcb05;
-    --button-hover: #e0b409;
+  /* colors */
+  --background-color: #fffade;
+  --primary-color: #3c5aa6;
+  --button-background: #ffcb05;
+  --button-hover: #e0b409;
 }
 
 /* Element style
 -----------------------------------------------------------*/
 body {
-    background-color: var(--background-color);
-    color: var(--primary-color);
-    font-family: 'Albert Sans';
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 1.2;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  font-family: "Albert Sans";
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.2;
 }
 h1 {
-    color: var(--button-background);
-    font-family: 'Miltonian Tattoo';
-    font-size: 28px;
-    font-weight: 400;
+  color: var(--button-background);
+  font-family: "Miltonian Tattoo";
+  font-size: 28px;
+  font-weight: 400;
 }
-h2 {   
-    font-family: 'Miltonian Tattoo';
-    font-size: 20px;
-    font-weight: 400;
-    margin: 0;
+h2 {
+  font-family: "Miltonian Tattoo";
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
 }
 li {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 /* So the navigation bad doesn't hide the top of the page */
 main {
-    margin-top: 120px;
+  margin-top: 120px;
 }
 nav {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 ul {
-    /* Takes away default bullets */
-    list-style-type: none;
+  /* Takes away default bullets */
+  list-style-type: none;
 }
 /* Component style
 -----------------------------------------------------------*/
 .spinner-border {
-    color: var(--primary-color);
-    margin: 50px;
+  color: var(--primary-color);
+  margin: 50px;
 }
 .modal-content {
-    background: var(--button-background);
-    border: 2px solid;
-    border-color: var(--primary-color);
-    border-radius: 10px;
-    color: var(--primary-color);
-    /* To match real Pokemon card dimensions */
-    height: 419px;
-    margin: auto;
-    padding: 15px;
-    /* Disables browser pointer actions except pinch-zoom */
-    touch-action: pinch-zoom; 
-    width: 300px;
+  background: var(--button-background);
+  border: 2px solid;
+  border-color: var(--primary-color);
+  border-radius: 10px;
+  color: var(--primary-color);
+  /* To match real Pokemon card dimensions */
+  height: 419px;
+  margin: auto;
+  padding: 15px;
+  /* Disables browser pointer actions except pinch-zoom */
+  touch-action: pinch-zoom;
+  width: 300px;
 }
 .modal-header {
-    border: none;
+  border: none;
 }
 .modal-img {
-    margin-top: 15px;
-    width: 50%;
+  margin-top: 15px;
+  width: 50%;
 }
 .modal-text {
-    bottom: 0;
-    padding: 16px 16px 16px 0;
-    position: absolute;
-    text-align: left;
+  bottom: 0;
+  padding: 16px 16px 16px 0;
+  position: absolute;
+  text-align: left;
 }
 .pokemon-button {
-    background-color: var(--button-background);
-    border: 2px solid;
-    border-color: var(--primary-color);
-    border-radius: 10px;
-    color: var(--primary-color);
-    height: 180px;
-    margin: 24px auto;
-    padding: 20px;
-    text-decoration: none;
-    transition: 0.2s transform ease-in-out, 
-    0.2s background-color ease-in-out;
-    width: 180px;
-}.pokemon-button:hover,
+  background-color: var(--button-background);
+  border: 2px solid;
+  border-color: var(--primary-color);
+  border-radius: 10px;
+  color: var(--primary-color);
+  height: 180px;
+  margin: 24px auto;
+  padding: 20px;
+  text-decoration: none;
+  transition: 0.2s transform ease-in-out, 0.2s background-color ease-in-out;
+  width: 180px;
+}
+.pokemon-button:hover,
 .pokemon-button:focus {
-    background-color: var(--button-hover);
-    cursor: pointer;
-    transform: scale(1.075);
+  background-color: var(--button-hover);
+  cursor: pointer;
+  transform: scale(1.075);
 }
 
 /* Animations
 -----------------------------------------------------------*/
 @keyframes jump {
-    0% {
-        bottom: 0px;
-    }
-    20% {
-        bottom: 5px;
-    }
-    40% {
-        bottom: 0px;
-    }
+  0% {
+    bottom: 0px;
+  }
+  20% {
+    bottom: 5px;
+  }
+  40% {
+    bottom: 0px;
+  }
 }
 .jumping-dots {
-    animation: jump 2s infinite;
-    bottom: 0px;
-    position: relative;
+  animation: jump 2s infinite;
+  bottom: 0px;
+  position: relative;
 }
-.dot-1{
-    animation-delay: 200ms;
+.dot-1 {
+  animation-delay: 200ms;
 }
-.dot-2{
-    animation-delay: 400ms;
+.dot-2 {
+  animation-delay: 400ms;
 }
-.dot-3{
-    animation-delay: 600ms;
+.dot-3 {
+  animation-delay: 600ms;
 }
