@@ -147,7 +147,7 @@ let pokemonRepository = (function() {
             });
             pokemon.abilities = arrayOfAbilities.join(', ');
         }).catch (function (e) {
-            hideLoadingSpinner();
+            hideLoadingSpinner(spinnerLocation);
             console.error(e);
         });
     }
