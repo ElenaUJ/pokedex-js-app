@@ -291,6 +291,7 @@ let pokemonRepository = (function() {
 })();
 
 // Implementation of all Pokemon from the external API in the app's DOM. List should only be displayed after the data is loaded from the API.
+// Question: Why does this have to happen outside the IIFE? Everything else works from within it.
 pokemonRepository.loadList().then(function() {
     // Now the data is loaded! Following is the callback function which has two functions as a value. First, the function which should be looped over each array item. addListPokemon() function is called within the function declaration. Parameter of the printList() function has to be the same as the addListPokemon()'s arguments.
     function printList(pokemon) {
