@@ -19,7 +19,8 @@ body {
     line-height: 1.2;
 }
 h1 {
-    font-family: 'Miltonian';
+    color: var(--button-background);
+    font-family: 'Miltonian Tattoo';
     font-size: 28px;
     font-weight: 400;
 }
@@ -35,10 +36,10 @@ li {
 }
 /* So the navigation bad doesn't hide the top of the page */
 main {
-    margin-top: 100px;
+    margin-top: 120px;
 }
 nav {
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
 }
 ul {
     /* Takes away default bullets */
