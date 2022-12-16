@@ -3,23 +3,23 @@ let pokemonRepository = (function () {
   // Array definition (empty), becaue Pokemons will be pushed from API
   let pokemonList = [];
 
-  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=850";
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=850';
 
-  let pokemonModal = document.querySelector(".modal-dialog");
+  let pokemonModal = document.querySelector('.modal-dialog');
 
   // Function declarations are not ended with a semicolon, because they are not executable statements.
   // This function will be used when Pokemons can be added without hardcoding the values.
   function add(pokemon) {
     // Validation of input type: Has to be an object which contains the keys name and detailsUrl
     if (
-      typeof pokemon === "object" &&
-      Object.keys(pokemon).includes("name" && "detailsUrl")
+      typeof pokemon === 'object' &&
+      Object.keys(pokemon).includes('name' && 'detailsUrl')
     ) {
       // .push method adds elements to the end of the array
       pokemonList.push(pokemon);
     } else {
       console.error(
-        "Pokémon has to be added using this format: {name:, detailsUrl:}"
+        'Pokémon has to be added using this format: {name:, detailsUrl:}'
       );
     }
   }
@@ -49,21 +49,21 @@ let pokemonRepository = (function () {
     // Details have to be loaded before referring to frontImageUrl
     // Question: But ever since I did this (andding the image to the buttons) there is some loading error in the console (even though images are visible) and sometimes the Pokemon are rendered in a different order!
     loadDetails(pokemon).then(function () {
-      let pokemonList = document.querySelector(".pokemon-list");
-      let listPokemon = document.createElement("li");
+      let pokemonList = document.querySelector('.pokemon-list');
+      let listPokemon = document.createElement('li');
       // Adding Bootstrap utility class
-      listPokemon.classList.add("col");
+      listPokemon.classList.add('col');
 
-      let button = document.createElement("button");
-      let buttonText = document.createElement("h2");
+      let button = document.createElement('button');
+      let buttonText = document.createElement('h2');
       button.appendChild(buttonText);
       buttonText.innerText =
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
       // Adding class="pokemon-button" to button. Specific CSS style for this class defined in CSS stylesheet.
-      button.classList.add("pokemon-button");
-      button.setAttribute("data-toggle", "modal");
-      button.setAttribute("data-target", ".modal");
-      let pokemonImage = document.createElement("img");
+      button.classList.add('pokemon-button');
+      button.setAttribute('data-toggle', 'modal');
+      button.setAttribute('data-target', '.modal');
+      let pokemonImage = document.createElement('img');
       pokemonImage.src = pokemon.frontImageUrl;
       button.appendChild(pokemonImage);
 
@@ -73,7 +73,7 @@ let pokemonRepository = (function () {
       pokemonList.appendChild(listPokemon);
 
       // Event Listener records any clicking on Pokemon buttons, which triggers the showDetails function declared above (Event Handler), using the clicked-on Pokemon as parameter.
-      button.addEventListener("click", function () {
+      button.addEventListener('click', function () {
         showDetails(pokemon);
       });
     });
@@ -82,14 +82,14 @@ let pokemonRepository = (function () {
   // Hide and show Bootstrap loading spinner functions.
   // Question: I am observing a bug when switching modals. When a loading spinner is there, it's not one but several underneath each other. I don't understand what I did wrong. Or if this is related to the other bug that crashes my app when I load too many Pokemon. Do you have an idea?
   function showLoadingSpinner(spinnerLocation) {
-    let spinnerContainer = document.createElement("div");
-    spinnerContainer.classList.add("text-center");
-    let loadingSpinner = document.createElement("div");
-    loadingSpinner.classList.add("spinner-border");
-    loadingSpinner.setAttribute("role", "status");
-    let spinnerText = document.createElement("span");
-    spinnerText.classList.add("sr-only");
-    spinnerText.innerText = "Loading...";
+    let spinnerContainer = document.createElement('div');
+    spinnerContainer.classList.add('text-center');
+    let loadingSpinner = document.createElement('div');
+    loadingSpinner.classList.add('spinner-border');
+    loadingSpinner.setAttribute('role', 'status');
+    let spinnerText = document.createElement('span');
+    spinnerText.classList.add('sr-only');
+    spinnerText.innerText = 'Loading...';
     loadingSpinner.appendChild(spinnerText);
     spinnerContainer.appendChild(loadingSpinner);
     spinnerLocation.appendChild(spinnerContainer);
@@ -100,7 +100,7 @@ let pokemonRepository = (function () {
 
   // Promise-fetch-function: API URL will be fetched. Result of the promise is the response which will be converted to a JSON in another promise function. When that is successful, a forEach loop will be run on each Pokemon item in the json.results array, creating a pokemon variable object containing two keys, name and detailsUrl. After, run add() function (declared above) to add all those pokeons to the pokemonList array.
   function loadList() {
-    let spinnerLocation = document.querySelector(".main");
+    let spinnerLocation = document.querySelector('.main');
     showLoadingSpinner(spinnerLocation);
     return fetch(apiUrl)
       .then(function (response) {
@@ -129,7 +129,7 @@ let pokemonRepository = (function () {
 
   function loadDetails(pokemon) {
     // detailsUrl was defined within the loadList() function. loadList() is called when loading the page, running .addListPokemon() for every Pokemon in the API. AddListPokemon() hosts an event listener on the Pokemon button, calling showDetails() upon button click, which in turn contains loadDetails() as a promise.
-    let spinnerLocation = document.querySelector(".modal-body");
+    let spinnerLocation = document.querySelector('.modal-body');
     showLoadingSpinner(spinnerLocation);
     let url = pokemon.detailsUrl;
     return fetch(url)
@@ -149,12 +149,12 @@ let pokemonRepository = (function () {
           arrayOfTypes.push(item.type.name);
         });
         // .join() defines the separator between printed array items
-        pokemon.types = arrayOfTypes.join(", ");
+        pokemon.types = arrayOfTypes.join(', ');
         let arrayOfAbilities = [];
         details.abilities.forEach(function (item) {
           arrayOfAbilities.push(item.ability.name);
         });
-        pokemon.abilities = arrayOfAbilities.join(", ");
+        pokemon.abilities = arrayOfAbilities.join(', ');
       })
       .catch(function (e) {
         hideLoadingSpinner(spinnerLocation);
@@ -165,32 +165,32 @@ let pokemonRepository = (function () {
   // Creating function to be called upon clicking Pokemon buttons: 1. Fetch pokemon details (only done when clicked on button) and then 2. open a modal with Pokemon details
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
-      let modalTitle = document.querySelector(".modal-title");
-      let modalBody = document.querySelector(".modal-body");
+      let modalTitle = document.querySelector('.modal-title');
+      let modalBody = document.querySelector('.modal-body');
 
       // Clearing previous modal content
       // This doesn't seem to work properly?
-      modalTitle.innerHTML = "";
-      modalBody.innerHTML = "";
+      modalTitle.innerHTML = '';
+      modalBody.innerHTML = '';
 
       // Creating modal content elements
-      let nameElement = document.createElement("h2");
+      let nameElement = document.createElement('h2');
       nameElement.innerText =
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-      let imageElementFront = document.createElement("img");
-      imageElementFront.classList.add("modal-img");
+      let imageElementFront = document.createElement('img');
+      imageElementFront.classList.add('modal-img');
       imageElementFront.src = pokemon.frontImageUrl;
-      let imageElementBack = document.createElement("img");
-      imageElementBack.classList.add("modal-img");
+      let imageElementBack = document.createElement('img');
+      imageElementBack.classList.add('modal-img');
       imageElementBack.src = pokemon.backImageUrl;
-      let modalText = document.createElement("div");
-      modalText.classList.add("modal-text");
-      let heightElement = document.createElement("p");
-      heightElement.innerText = "Height: " + pokemon.height + " dm";
-      let typesElement = document.createElement("p");
-      typesElement.innerText = "Types: " + pokemon.types;
-      let abilitiesElement = document.createElement("p");
-      abilitiesElement.innerText = "Abilities: " + pokemon.abilities;
+      let modalText = document.createElement('div');
+      modalText.classList.add('modal-text');
+      let heightElement = document.createElement('p');
+      heightElement.innerText = 'Height: ' + pokemon.height + ' dm';
+      let typesElement = document.createElement('p');
+      typesElement.innerText = 'Types: ' + pokemon.types;
+      let abilitiesElement = document.createElement('p');
+      abilitiesElement.innerText = 'Abilities: ' + pokemon.abilities;
       modalTitle.appendChild(nameElement);
       modalBody.appendChild(imageElementFront);
       modalBody.appendChild(imageElementBack);
@@ -201,22 +201,22 @@ let pokemonRepository = (function () {
 
       // Swiping between Pokemon modals
       // Question: Why does this only work when within the showDetails() function?
-      pokemonModal.addEventListener("pointerdown", function (event) {
+      pokemonModal.addEventListener('pointerdown', function (event) {
         touchStartX = event.clientX;
         touchStartY = event.clientY;
       });
-      pokemonModal.addEventListener("pointerup", function (event) {
+      pokemonModal.addEventListener('pointerup', function (event) {
         touchEndX = event.clientX;
         touchEndY = event.clientY;
         handleSwipes(pokemon, touchStartX, touchStartY, touchEndX, touchEndY);
       });
 
       // Switching Pokemon by pressing arrow keys
-      window.addEventListener("keydown", function (event) {
-        if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      window.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
           getPrevPokemon(pokemon);
           showDetails(prevPokemon);
-        } else if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+        } else if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
           getNextPokemon(pokemon);
           showDetails(nextPokemon);
         }
@@ -225,9 +225,9 @@ let pokemonRepository = (function () {
   }
 
   // To hide modal upon pressing Escape key. Followed Bootstrap documentation regarding how to manually hide the modal (use of jQuery is mandatory)
-  window.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-      $(".modal").modal("hide");
+  window.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      $('.modal').modal('hide');
     }
   });
 
