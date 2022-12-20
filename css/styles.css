@@ -42,6 +42,7 @@ nav {
   background-color: var(--primary-color);
 }
 ul {
+  justify-content: center;
   /* Takes away default bullets */
   list-style-type: none;
 }
@@ -50,6 +51,10 @@ ul {
 .spinner-border {
   color: var(--primary-color);
   margin: 50px;
+}
+.error-message {
+  font-size: 16px;
+  padding-top: 100px;
 }
 .modal-content {
   background: var(--button-background);
