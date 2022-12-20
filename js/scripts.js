@@ -3,6 +3,8 @@ let pokemonRepository = (function () {
   // Array definition (empty), becaue Pokemons will be pushed from API
   let pokemonList = [];
 
+  let printedList = document.querySelector('.pokemon-list');
+
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=200';
 
   let inputField = document.querySelector('.search');
@@ -51,7 +53,6 @@ let pokemonRepository = (function () {
     // Details have to be loaded before referring to frontImageUrl
     // Question: But ever since I did this (andding the image to the buttons) there is some loading error in the console (even though images are visible) and sometimes the Pokemon are rendered in a different order!
     loadDetails(pokemon).then(function () {
-      let pokemonList = document.querySelector('.pokemon-list');
       let listPokemon = document.createElement('li');
       // Adding Bootstrap utility class
       listPokemon.classList.add('col');
@@ -71,8 +72,8 @@ let pokemonRepository = (function () {
 
       // Appending button to listPokemon as its child.
       listPokemon.appendChild(button);
-      // Appending listPokemon to pokemonList as its child.
-      pokemonList.appendChild(listPokemon);
+      // Appending listPokemon to printedList as its child.
+      printedList.appendChild(listPokemon);
 
       // Event Listener records any clicking on Pokemon buttons, which triggers the showDetails function declared above (Event Handler), using the clicked-on Pokemon as parameter.
       button.addEventListener('click', function () {
