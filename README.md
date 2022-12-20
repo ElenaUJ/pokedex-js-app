@@ -19,8 +19,8 @@ It loads data from an external API and enables the viewing of Pokémon details o
 
 - Load data from an external source (API)
 - View a list of items
+- Search for items to be displayed
 - On user action (e.g., by clicking on a list item), view details for that item
-- Switch between items using swipe or arrow keys
 - View loading spinners while fetching API data
 
 ## Links
@@ -49,4 +49,3 @@ It loads data from an external API and enables the viewing of Pokémon details o
 ### Used resources
 
 - [PokéAPI used for this application](https://pokeapi.co/api/v2/pokemon/)
-- [Example used as rough template for Swipe function](https://gist.github.com/SleepWalker/da5636b1abcbaff48c4d?permalink_comment_id=3753498#gistcomment-3753498)
