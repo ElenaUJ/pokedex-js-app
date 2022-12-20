@@ -49,12 +49,9 @@ let pokemonRepository = (function () {
     let filteredList = filterPokemons(query);
     removeList();
     if (filteredList.length === 0) {
-      let message = document.createElement('p');
-      message.classList.add('error-message');
-      message.classList.add('col-6');
-      message.innerText =
-        'Sorry. There are no Pokémon matching your search criteria.';
-      printedList.appendChild(message);
+      showErrorMessage(
+        'Sorry. There are no Pokémon matching your search criteria.'
+      );
     } else {
       filteredList.forEach(addListPokemon);
     }
@@ -116,6 +113,14 @@ let pokemonRepository = (function () {
   function hideLoadingSpinner(spinnerLocation) {
     spinnerLocation.removeChild(spinnerLocation.lastChild);
   }
+  function showErrorMessage(message) {
+    let errorMessage = document.createElement('p');
+    errorMessage.classList.add('error-message');
+    errorMessage.classList.add('col-6');
+    // String is in double quotes because single quotes are used in text
+    errorMessage.innerText = message;
+    printedList.appendChild(errorMessage);
+  }
 
   // Promise-fetch-function: API URL will be fetched. Result of the promise is the response which will be converted to a JSON in another promise function. When that is successful, a forEach loop will be run on each Pokemon item in the json.results array, creating a pokemon variable object containing two keys, name and detailsUrl. After, run add() function (declared above) to add all those pokeons to the pokemonList array.
   function loadList() {
@@ -142,6 +147,11 @@ let pokemonRepository = (function () {
       })
       .catch(function (e) {
         hideLoadingSpinner(spinnerLocation);
+        removeList();
+        hideModal();
+        showErrorMessage(
+          "There don't seem to be any Pokémon around. If you are not offline, try again later."
+        );
         console.error(e);
       });
   }
@@ -317,6 +327,7 @@ let pokemonRepository = (function () {
     addListPokemon: addListPokemon,
     showLoadingSpinner: showLoadingSpinner,
     hideLoadingSpinner: hideLoadingSpinner,
+    showErrorMessage: showErrorMessage,
     loadList: loadList,
     loadDetails: loadDetails,
     showDetails: showDetails,
