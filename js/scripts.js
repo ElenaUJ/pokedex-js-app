@@ -28,21 +28,37 @@ let pokemonRepository = (function () {
     }
   }
 
+  // Implementing search box functionality
   // Function to filter Pokemon names by starting letters, using the filter() method. It creates a copy af the targeted array including only those objects for which the filter() function returns a truthy value.
-  // Parameter query represents the search input.
   function filterPokemons(query) {
     return pokemonList.filter(
       // Pokemon.name can not be used because pokemon has not been defined in this function yet.
       function (pokemon) {
         // toLowerCase() method was used so the input is not case-sensitive
-        // Concise form: return pokemon.name.toLowerCase().startsWith(query.toLowerCase());
-        // Verbose form:
         let pokemonLowerCase = pokemon.name.toLowerCase();
         let queryLowerCase = query.toLowerCase();
         return pokemonLowerCase.startsWith(queryLowerCase);
       }
     );
   }
+  function removeList() {
+    printedList.innerHTML = '';
+  }
+  inputField.addEventListener('input', function () {
+    let query = inputField.value;
+    let filteredList = filterPokemons(query);
+    removeList();
+    if (filteredList.length === 0) {
+      let message = document.createElement('p');
+      message.classList.add('error-message');
+      message.classList.add('col-6');
+      message.innerText =
+        'Sorry. There are no Pokémon matching your search criteria.';
+      printedList.appendChild(message);
+    } else {
+      filteredList.forEach(addListPokemon);
+    }
+  });
 
   function getAll() {
     return pokemonList;
@@ -293,6 +309,7 @@ let pokemonRepository = (function () {
   return {
     add: add,
     filterPokemons: filterPokemons,
+    removeList: removeList,
     getAll: getAll,
     addListPokemon: addListPokemon,
     showLoadingSpinner: showLoadingSpinner,
