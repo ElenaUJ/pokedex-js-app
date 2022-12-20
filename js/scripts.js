@@ -5,6 +5,8 @@ let pokemonRepository = (function () {
 
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=200';
 
+  let inputField = document.querySelector('.search');
+
   let pokemonModal = document.querySelector('.modal-dialog');
 
   // Function declarations are not ended with a semicolon, because they are not executable statements.
