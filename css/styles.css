@@ -40,7 +40,6 @@ li {
   display: flex;
   justify-content: center;
 }
-/* So the navigation bad doesn't hide the top of the page */
 main {
   margin-top: 120px;
 }
@@ -49,7 +48,6 @@ nav {
 }
 ul {
   justify-content: center;
-  /* Takes away default bullets */
   list-style-type: none;
 }
 /* Component style
@@ -61,6 +59,7 @@ ul {
 .error-message {
   font-size: 16px;
   padding-top: 100px;
+  text-align: center;
 }
 .modal-content {
   background: var(--button-background);

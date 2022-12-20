@@ -1,6 +1,4 @@
-// The array pokemonList is wrapped in an IIFE function to make its elements inaccessible from the outside. Exception: the two well-defined keys that are returned by the IIFE function.
 let pokemonRepository = (function () {
-  // Array definition (empty), becaue Pokemons will be pushed from API
   let pokemonList = [];
 
   let printedList = document.querySelector('.pokemon-list');
@@ -11,15 +9,12 @@ let pokemonRepository = (function () {
 
   let pokemonModal = document.querySelector('.modal-dialog');
 
-  // Function declarations are not ended with a semicolon, because they are not executable statements.
-  // This function will be used when Pokemons can be added without hardcoding the values.
   function add(pokemon) {
     // Validation of input type: Has to be an object which contains the keys name and detailsUrl
     if (
       typeof pokemon === 'object' &&
       Object.keys(pokemon).includes('name' && 'detailsUrl')
     ) {
-      // .push method adds elements to the end of the array
       pokemonList.push(pokemon);
     } else {
       console.error(
@@ -28,11 +23,8 @@ let pokemonRepository = (function () {
     }
   }
 
-  // Implementing search box functionality
-  // Function to filter Pokemon names by starting letters, using the filter() method. It creates a copy af the targeted array including only those objects for which the filter() function returns a truthy value.
   function filterPokemons(query) {
     return pokemonList.filter(
-      // Pokemon.name can not be used because pokemon has not been defined in this function yet.
       function (pokemon) {
         // toLowerCase() method was used so the input is not case-sensitive
         let pokemonLowerCase = pokemon.name.toLowerCase();
@@ -61,10 +53,7 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
 
-  // DOM manipulation
   function addListPokemon(pokemon) {
-    // Details have to be loaded before referring to frontImageUrl
-    // Question: But ever since I did this (andding the image to the buttons) there is some loading error in the console (even though images are visible) and sometimes the Pokemon are rendered in a different order!
     loadDetails(pokemon).then(function () {
       let listPokemon = document.createElement('li');
       // Adding Bootstrap utility class
@@ -75,7 +64,6 @@ let pokemonRepository = (function () {
       button.appendChild(buttonText);
       buttonText.innerText =
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-      // Adding class="pokemon-button" to button. Specific CSS style for this class defined in CSS stylesheet.
       button.classList.add('pokemon-button');
       button.setAttribute('data-toggle', 'modal');
       button.setAttribute('data-target', '.modal');
@@ -83,20 +71,16 @@ let pokemonRepository = (function () {
       pokemonImage.src = pokemon.frontImageUrl;
       button.appendChild(pokemonImage);
 
-      // Appending button to listPokemon as its child.
       listPokemon.appendChild(button);
-      // Appending listPokemon to printedList as its child.
       printedList.appendChild(listPokemon);
 
-      // Event Listener records any clicking on Pokemon buttons, which triggers the showDetails function declared above (Event Handler), using the clicked-on Pokemon as parameter.
       button.addEventListener('click', function () {
         showDetails(pokemon);
       });
     });
+  // Called in case of loading error and when manually hiding modal
   }
 
-  // Hide and show Bootstrap loading spinner functions.
-  // Question: I am observing a bug when switching modals. When a loading spinner is there, it's not one but several underneath each other. I don't understand what I did wrong. Or if this is related to the other bug that crashes my app when I load too many Pokemon. Do you have an idea?
   function showLoadingSpinner(spinnerLocation) {
     let spinnerContainer = document.createElement('div');
     spinnerContainer.classList.add('text-center');
@@ -117,30 +101,24 @@ let pokemonRepository = (function () {
     let errorMessage = document.createElement('p');
     errorMessage.classList.add('error-message');
     errorMessage.classList.add('col-6');
-    // String is in double quotes because single quotes are used in text
     errorMessage.innerText = message;
     printedList.appendChild(errorMessage);
   }
 
-  // Promise-fetch-function: API URL will be fetched. Result of the promise is the response which will be converted to a JSON in another promise function. When that is successful, a forEach loop will be run on each Pokemon item in the json.results array, creating a pokemon variable object containing two keys, name and detailsUrl. After, run add() function (declared above) to add all those pokeons to the pokemonList array.
   function loadList() {
     let spinnerLocation = document.querySelector('.main');
     showLoadingSpinner(spinnerLocation);
     return fetch(apiUrl)
       .then(function (response) {
         return response.json();
-        // json represents the API object in JSON format - .results is an object key of the external API including an array of Pokemon objects.
       })
       .then(function (json) {
         hideLoadingSpinner(spinnerLocation);
-        // Question: Am I allowed to do this at all or is that bad practice? I have to access the array in my handleSwipes() function. I had read somewhere, when I don't add let, the variable will be accessible everywhere. But what am I defining here? A global variable? I feel like that should be avoided... it there a way to easily solve this?
         pokemonArray = json.results;
         pokemonArray.forEach(function (item) {
           let pokemon = {
             name: item.name,
             detailsUrl: item.url,
-            // Important for swipe function
-            index: pokemonArray.indexOf(item),
           };
           add(pokemon);
         });
@@ -157,7 +135,6 @@ let pokemonRepository = (function () {
   }
 
   function loadDetails(pokemon) {
-    // detailsUrl was defined within the loadList() function. loadList() is called when loading the page, running .addListPokemon() for every Pokemon in the API. AddListPokemon() hosts an event listener on the Pokemon button, calling showDetails() upon button click, which in turn contains loadDetails() as a promise.
     let spinnerLocation = document.querySelector('.modal-body');
     showLoadingSpinner(spinnerLocation);
     let url = pokemon.detailsUrl;
@@ -167,17 +144,13 @@ let pokemonRepository = (function () {
       })
       .then(function (details) {
         hideLoadingSpinner(spinnerLocation);
-        // Adding details to pokemon by defining pokemon object-keys. (Let is not necessary to define new keys or key-value pairs.)
-        // Sprites are collections of images put into a single image.
         pokemon.frontImageUrl = details.sprites.front_default;
         pokemon.backImageUrl = details.sprites.back_default;
         pokemon.height = details.height;
-        // Extracting an array of types from the API type information. Their suggestion is to create a forLoop to iterate throught the API types object and pushing just the types into an empty array of types- and then display that to the user. Like so:
         let arrayOfTypes = [];
         details.types.forEach(function (item) {
           arrayOfTypes.push(item.type.name);
         });
-        // .join() defines the separator between printed array items
         pokemon.types = arrayOfTypes.join(', ');
         let arrayOfAbilities = [];
         details.abilities.forEach(function (item) {
@@ -191,14 +164,12 @@ let pokemonRepository = (function () {
       });
   }
 
-  // Creating function to be called upon clicking Pokemon buttons: 1. Fetch pokemon details (only done when clicked on button) and then 2. open a modal with Pokemon details
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
       let modalTitle = document.querySelector('.modal-title');
       let modalBody = document.querySelector('.modal-body');
 
       // Clearing previous modal content
-      // This doesn't seem to work properly?
       modalTitle.innerHTML = '';
       modalBody.innerHTML = '';
 
@@ -252,7 +223,6 @@ let pokemonRepository = (function () {
     });
   }
 
-  // To hide modal upon pressing Escape key.
   function hideModal() {
     pokemonModal.classList.add('hidden');
   }
@@ -318,7 +288,6 @@ let pokemonRepository = (function () {
     }
   }
 
-  // Return a new object with keys that penetrate the IIFE ("public functions") - a dictionary.
   return {
     add: add,
     filterPokemons: filterPokemons,
@@ -335,17 +304,12 @@ let pokemonRepository = (function () {
     getPrevPokemon: getPrevPokemon,
     handleSwipes: handleSwipes,
   };
-
-  // The IIFE function is self-executing, hence why it ends with parentheses
 })();
 
 // Implementation of all Pokemon from the external API in the app's DOM. List should only be displayed after the data is loaded from the API.
-// Question: Why does this have to happen outside the IIFE? Everything else works from within it.
 pokemonRepository.loadList().then(function () {
-  // Now the data is loaded! Following is the callback function which has two functions as a value. First, the function which should be looped over each array item. addListPokemon() function is called within the function declaration. Parameter of the printList() function has to be the same as the addListPokemon()'s arguments.
   function printList(pokemon) {
     pokemonRepository.addListPokemon(pokemon);
   }
-  // Calling the forEach method to run the addListPokemon function for every array item of the pokemonList array. (Has to be accessed by calling the getAll() function.) ForEach method takes functions as arguments.
   pokemonRepository.getAll().forEach(printList);
 });
