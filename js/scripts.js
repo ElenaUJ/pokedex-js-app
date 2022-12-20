@@ -242,10 +242,13 @@ let pokemonRepository = (function () {
     });
   }
 
-  // To hide modal upon pressing Escape key. Followed Bootstrap documentation regarding how to manually hide the modal (use of jQuery is mandatory)
+  // To hide modal upon pressing Escape key.
+  function hideModal() {
+    pokemonModal.classList.add('hidden');
+  }
   window.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') {
-      $('.modal').modal('hide');
+      hideModal();
     }
   });
 
