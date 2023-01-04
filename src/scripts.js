@@ -78,6 +78,8 @@ let pokemonRepository = (function () {
           let pokemon = {
             name: item.name,
             detailsUrl: item.url,
+            // Important for swipe function
+            index: pokemonArray.indexOf(item),
           };
           add(pokemon);
         });
@@ -225,6 +227,31 @@ let pokemonRepository = (function () {
       modalText.appendChild(heightElement);
       modalText.appendChild(typesElement);
       modalText.appendChild(abilitiesElement);
+
+      // Swiping between Pokemon modals
+      // Question: Why does this only work when within the showDetails() function?
+      // Answer Sahil: EventListener needs to be global. This piece of code could be the issue which is causing the resource error.
+      // Look into it!!!!
+      pokemonModal.addEventListener('pointerdown', function (event) {
+        touchStartX = event.clientX;
+        touchStartY = event.clientY;
+      });
+      pokemonModal.addEventListener('pointerup', function (event) {
+        touchEndX = event.clientX;
+        touchEndY = event.clientY;
+        handleSwipes(pokemon, touchStartX, touchStartY, touchEndX, touchEndY);
+      });
+
+      // Switching Pokemon by pressing arrow keys
+      window.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+          getPrevPokemon(pokemon);
+          showDetails(prevPokemon);
+        } else if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+          getNextPokemon(pokemon);
+          showDetails(nextPokemon);
+        }
+      });
     });
   }
 
@@ -234,6 +261,63 @@ let pokemonRepository = (function () {
       hideModal();
     }
   });
+
+  // Functions to define next or previous Pokemon needed for swiping/arrow key funcitonality
+  function getNextPokemon(pokemon) {
+    // If statements to avoid bugs when swiping at last Pokemon of array
+    if (pokemon.index < pokemonArray.length - 1) {
+      let nextPokemonItem = pokemonArray[pokemon.index + 1];
+      // Important to define Pokemon object just like in loadList(), since pokemonArray[] just returns an item, but showDetails() (and within it, loadDetails()) works with an object and its keys.
+      return (nextPokemon = {
+        name: nextPokemonItem.name,
+        detailsUrl: nextPokemonItem.url,
+        index: pokemonArray.indexOf(nextPokemonItem),
+      });
+    }
+  }
+  function getPrevPokemon(pokemon) {
+    if (pokemon.index > 0) {
+      let prevPokemonItem = pokemonArray[pokemon.index - 1];
+      return (prevPokemon = {
+        name: prevPokemonItem.name,
+        detailsUrl: prevPokemonItem.url,
+        index: pokemonArray.indexOf(prevPokemonItem),
+      });
+    }
+  }
+
+  // Function to be called when swiping between modals
+  // Question: This function has 5 parameters. Is it bad practice having so many? Is there a better way?
+  // Answer Sahil: Very situational. Also depends on the programming language. For example, in python you have multiple data type objects in a single List, which may not be the case for other languages. In JS, you can explore Arrays in the same way. Add all five parameters as an array rather than individually. But again, passing 5 parameters might not be all that bad either.
+  // Question: When I swipe too quickly through the modal, the app crashes. It will iterate through many Pokemon very fast and then become unresponsive... do you have any idea why that is the case??
+  // Answer Sahil: yes, the browser runs out of memory due to multiple API calls which should not happen
+  function handleSwipes(
+    pokemon,
+    touchStartX,
+    touchStartY,
+    touchEndX,
+    touchEndY
+  ) {
+    getNextPokemon(pokemon);
+    getPrevPokemon(pokemon);
+    let deltaX = touchEndX - touchStartX;
+    let deltaY = touchEndY - touchStartY;
+    // Math.abs() returns absolute value of a number (so positive or negativ won't play a role)
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Only swipe if movement greater than 30 px, ignore smaller movements
+      if (deltaX > 30) {
+        showDetails(prevPokemon);
+      } else if (deltaX < -30) {
+        showDetails(nextPokemon);
+      }
+    } else if (Math.abs(deltaX) < Math.abs(deltaY)) {
+      if (deltaY > 30) {
+        showDetails(prevPokemon);
+      } else if (deltaY < -30) {
+        showDetails(nextPokemon);
+      }
+    }
+  }
 
   // Returning a new object with keys that penetrate the IIFE ("public functions") - a dictionary.
   return {
