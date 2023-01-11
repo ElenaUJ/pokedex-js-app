@@ -92,6 +92,10 @@ ul {
   position: absolute;
   text-align: left;
 }
+/* Removes border when clicking closing button */
+.close:focus {
+  outline: none;
+}
 .pokemon-button {
   background-color: var(--button-background);
   border: 2px solid;
