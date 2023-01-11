@@ -211,7 +211,7 @@ let pokemonRepository = (function () {
       modalText.classList.add('modal-text');
 
       let heightElement = document.createElement('p');
-      heightElement.innerText = 'Height: ' + pokemon.height + ' dm';
+      heightElement.innerText = 'Height: ' + pokemon.height / 10 + ' m';
 
       let typesElement = document.createElement('p');
       typesElement.innerText = 'Types: ' + pokemon.types;
