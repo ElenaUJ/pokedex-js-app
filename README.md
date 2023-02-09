@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-- [overview]
-  - [key_features]
-- [links]
-- [process]
-  - [programming_languages]
-  - [dependencies]
-  - [used_resources]
+- [Overview](#overview)
+  - [Key Features](#key-features)
+- [Links](#links)
+- [Process](#process)
+  - [Programming Languages](#programming-languages)
+  - [Dependencies](#dependencies)
+  - [Used Resources](#used-resources)
 
 ## Overview
 
