@@ -5,6 +5,7 @@
 - [Overview](#overview)
   - [Key Features](#key-features)
 - [Links](#links)
+- [How to Run](#how-to-run)
 - [Process](#process)
   - [Programming Languages](#programming-languages)
   - [Dependencies](#dependencies)
@@ -28,13 +29,23 @@ It loads data from an external API and enables the viewing of Pokémon details o
 - [Code URL](https://github.com/ElenaUJ/pokedex-js-app)
 - [Live Site URL](https://elenauj.github.io/pokedex-js-app/)
 
+## How to Run
+
+1. Clone the Repository: Open your terminal and enter the following command to clone the repository:
+   `git clone https://github.com/ElenaUJ/pokedex-js-app.git`
+
+2. Navigate to the Project Directory: Change your working directory to the project folder by entering this command:
+   `cd pokedex-js-app`
+
+3. Open the App: After navigating to the project folder, locate the index.html file and double-click it. Your default web browser will open, displaying the Pokedex app.
+
 ## Process
 
 ### Programming Languages
 
 - HTML
 - CSS
-- JavaScript ES6 (using polyfills for older browsers)
+- Vanilla JavaScript ES6
 
 ### Dependencies
 
