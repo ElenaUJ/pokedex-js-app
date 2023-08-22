@@ -13,6 +13,8 @@
 
 ## Overview
 
+![Screenshot of the app's main page](img/screenshot_main_page.jpg)
+
 Pokédex app is a a small web application built with HTML, CSS, and JavaScript.
 It loads data from an external API and enables the viewing of Pokémon details on demand.
 
