@@ -13,10 +13,7 @@
 
 ## Overview
 
-![Screenshot of the app's main page](img/screenshot_main_page.jpg)
-
-Pokédex app is a a small web application built with HTML, CSS, and JavaScript.
-It loads data from an external API and enables the viewing of Pokémon details on demand.
+Pokédex app is a a small web application built with HTML, CSS, and vanilla JavaScript. It loads data from an external API and enables the viewing of Pokémon details on demand.
 
 ### Key Features
 
@@ -26,6 +23,8 @@ It loads data from an external API and enables the viewing of Pokémon details o
 - On user action (e.g., by clicking on a list item), view details for that item
 - View loading spinners while fetching API data
 
+![Screenshot of the app's main page](img/screenshot_main_page.jpg)
+
 ## Links
 
 - [Code URL](https://github.com/ElenaUJ/pokedex-js-app)
@@ -34,16 +33,19 @@ It loads data from an external API and enables the viewing of Pokémon details o
 ## How to Run
 
 1. _Clone the Repository:_
+
    Open your terminal and enter the following command to clone the repository:
 
-`git clone https://github.com/ElenaUJ/pokedex-js-app.git`
+   `git clone https://github.com/ElenaUJ/pokedex-js-app.git`
 
 2. _Navigate to the Project Directory:_
+
    Change your working directory to the project folder by entering this command:
 
-`cd pokedex-js-app`
+   `cd pokedex-js-app`
 
 3. _Open the App:_
+
    After navigating to the project folder, locate the index.html file and double-click it. Your default web browser will open, displaying the Pokedex app.
 
 ## Process
